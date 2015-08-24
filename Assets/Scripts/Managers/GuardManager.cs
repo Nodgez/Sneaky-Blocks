@@ -11,7 +11,7 @@ public class GuardManager : MonoBehaviour {
 		GameObject[] guardObjects = GameObject.FindGameObjectsWithTag ("Guard");
 		foreach (GameObject go in guardObjects) {
 			BaseGuard guard = go.GetComponent<BaseGuard>();
-			guard.TargetName = guardTarget.name;
+			guard.targetName = guardTarget.name;
 			guards.Add(guard);
 		}
 

@@ -4,29 +4,18 @@ using System.Collections;
  * Upon detection of the player's presence,
  * Clear this level and load another one.
  */
-public class Exit : MonoBehaviour, IDetect {
+public class Exit : ProximityDetector {
 
-	public int nextLevelIndex;
-	public float detectionRadius;
-
-	public bool DetectUnit(Vector3 position)
+	public override bool Detect (Vector3 position)
 	{
-		if (Vector3.Distance (this.transform.position, position) < DetectionRadius) {
-			Application.LoadLevel(nextLevelIndex);
-			Debug.Log("Detected");
-		}
+		if (base.Detect (position))
+			Application.LoadLevel (0);
 
 		return false;
 	}
-
 	public string TargetName {
 		get;
 		set;
-	}
-
-	public float DetectionRadius {
-		get{ return detectionRadius;}
-		set{ detectionRadius = value;}
 	}
 
 	void OnDrawGizmos()

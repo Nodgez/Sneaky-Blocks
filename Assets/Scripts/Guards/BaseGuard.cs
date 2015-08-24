@@ -1,25 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class BaseGuard : MonoBehaviour,IDetect {
+public abstract class BaseGuard : MonoBehaviour {
 
-	void Start () {
-	
-	}
-	
-	void Update () {
-	
-	}
+	public float detectionRadius = 5f;
+	public string targetName;
 
-	public virtual void Seek()
-	{
-
-	}
-
-	public virtual bool DetectUnit(Vector3 position)
-	{
-		return false;
-	}
+	public abstract void Seek ();
+	public abstract bool DetectUnit(Vector3 position);
 
 	public Vector3 Position
 	{
@@ -31,15 +19,5 @@ public class BaseGuard : MonoBehaviour,IDetect {
 	{
 		get{ return this.transform.rotation;}
 		set{this.transform.rotation = value;}
-	}
-
-	public string TargetName {
-		get;
-		set;
-	}
-
-	public float DetectionRadius {
-		get;
-		set;
 	}
 }

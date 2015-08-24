@@ -16,7 +16,6 @@ public class CheckpointGuard : BaseGuard {
 
 	void Start()
 	{
-		DetectionRadius = 5;
 		rotationAtLastCheckpoint = transform.rotation;
 	}
 
@@ -51,14 +50,14 @@ public class CheckpointGuard : BaseGuard {
 		float dotProduct = 0;
 		dotProduct = Vector3.Dot(directionToPlayer,transform.right);
 		RaycastHit hit;
-		Debug.DrawRay (transform.position, transform.right * DetectionRadius, Color.red);
+		Debug.DrawRay (transform.position, transform.right * detectionRadius, Color.red);
 		
 		if(Physics.Linecast(transform.position,position,out hit))
 		{
 			Debug.DrawLine(transform.position,position,Color.yellow);
-			if(hit.collider.name == TargetName)
+			if(hit.collider.name == targetName)
 			{
-				if(distanceFromUnit < DetectionRadius && dotProduct > 0.75f)
+				if(distanceFromUnit < detectionRadius && dotProduct > 0.75f)
 					return true;
 			}
 		}
