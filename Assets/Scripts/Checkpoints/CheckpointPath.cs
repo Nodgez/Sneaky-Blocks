@@ -12,8 +12,11 @@ public class CheckpointPath : MonoBehaviour {
 		for (int i = 0; i < transform.childCount; i++)
 			checkpoints.Add (transform.GetChild(i).GetComponent<BaseCheckpoint>());
 
-		guardOnPath.transform.position = checkpoints [0].Position;
 		ApplyNeightbours ();
+
+		if (!guardOnPath)
+			return;
+		guardOnPath.transform.position = checkpoints [0].Position;
 		guardOnPath.TargetCheckpoint = checkpoints[0];
 	}
 

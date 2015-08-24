@@ -39,6 +39,8 @@ public class CheckpointEditor : PlacementEditor {
 				break;
 			case CheckpointType.Teleport:
 				checkpointScript = go.AddComponent<TeleporterCheckpoint>();
+				GameObject particles = AssetDatabase.LoadAssetAtPath<GameObject>(@"Assets\Prefabs\Partilces\Teleporter Particles Enter");
+				particles.transform.SetParent(go.transform);
 				break;
 			case CheckpointType.Survey:
 				checkpointScript = go.AddComponent<SurveyCheckpoint>();
