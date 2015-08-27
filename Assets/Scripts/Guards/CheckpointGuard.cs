@@ -59,7 +59,6 @@ public class CheckpointGuard : BaseGuard {
 			{
 				if(distanceFromUnit < detectionRadius && dotProduct > 0.75f)
 				{
-					IsTriggered = true;
 					return true;
 				}
 			}

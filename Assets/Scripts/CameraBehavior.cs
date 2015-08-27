@@ -5,6 +5,7 @@ public class CameraBehavior : MonoBehaviour {
 
 	private EventPool eventPool;
 
+	public Transform targetTransform;
 	public float minZoom = 3;
 	public float maxZoom = 7;
 
@@ -17,11 +18,11 @@ public class CameraBehavior : MonoBehaviour {
 	}
 	
 	void Update () {
-	
+		transform.position = targetTransform.position - new Vector3 (0, -10, 0);
 	}
 
 	void EventZoom()
 	{
-		Camera.main.orthographicSize = minZoom; 
+		Camera.main.orthographicSize = minZoom;
 	}
 }

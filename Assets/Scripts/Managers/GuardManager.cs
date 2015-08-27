@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class GuardManager : MonoBehaviour {
+public class GuardManager : MonoBehaviour, ITrigger {
 
 	private List<BaseGuard> guards = new List<BaseGuard>();
 	public Transform guardTarget;
@@ -21,33 +21,30 @@ public class GuardManager : MonoBehaviour {
 		}
 
 		GameEvent playerFound = new GameEvent ();
+		playerFound.AddEventTrigger (this);
+
 		EventPool eventPool = GameObject.FindObjectOfType<EventPool> ();
-
-		for(int i = 0; i < guards.Count;i++)
-			playerFound.AddEventTrigger (guards[i]);
-
 		eventPool.AddEventToPool ("Player Found",ref playerFound);
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		if (guards == null)
+		if (guards == null || IsTriggered)
 			return;
 
 		foreach (BaseGuard guard in guards) {
 			guard.Seek ();
-
-			if(guard.DetectUnit(guardTarget.position))
-			{
-				Debug.Log("Player Found");
-				Time.timeScale = 0;
-				//zoom camera
-			}
+			IsTriggered = guard.DetectUnit(guardTarget.position);
 		}
 	}
 
 	public List<BaseGuard> Guards {
 		get{ return guards;}
 		set{ guards = value;}
+	}
+
+	public bool IsTriggered {
+		get;
+		set;
 	}
 }
