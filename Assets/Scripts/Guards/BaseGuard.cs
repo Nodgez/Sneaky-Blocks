@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public abstract class BaseGuard : MonoBehaviour {
+public abstract class BaseGuard : MonoBehaviour, ITrigger {
 
 	public float detectionRadius = 5f;
 	public string targetName;
@@ -19,5 +19,10 @@ public abstract class BaseGuard : MonoBehaviour {
 	{
 		get{ return this.transform.rotation;}
 		set{this.transform.rotation = value;}
+	}
+
+	public bool IsTriggered {
+		get;
+		set;
 	}
 }

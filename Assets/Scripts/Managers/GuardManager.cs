@@ -19,6 +19,14 @@ public class GuardManager : MonoBehaviour {
 			guardTarget = this.transform;
 			Debug.Log("No Target Available");
 		}
+
+		GameEvent playerFound = new GameEvent ();
+		EventPool eventPool = GameObject.FindObjectOfType<EventPool> ();
+
+		for(int i = 0; i < guards.Count;i++)
+			playerFound.AddEventTrigger (guards[i]);
+
+		eventPool.AddEventToPool ("Player Found",ref playerFound);
 	}
 	
 	// Update is called once per frame

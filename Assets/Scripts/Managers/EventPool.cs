@@ -15,7 +15,7 @@ public class EventPool : MonoBehaviour {
 			eventDictionary [s].CheckEventTriggered ();
 	}
 
-	public void AddEventToPool(string key, GameEvent gameEvent)
+	public void AddEventToPool(string key, ref GameEvent gameEvent)
 	{
 		if (!eventDictionary.ContainsKey (key))
 			eventDictionary.Add (key, gameEvent);
@@ -23,11 +23,11 @@ public class EventPool : MonoBehaviour {
 			eventDictionary [key] = gameEvent;
 	}
 
-	public GameEvent GetEventFromPool(string key)
+	public void GetEventFromPool(string key, out GameEvent gameEvent)
 	{
 		if (eventDictionary.ContainsKey (key))
-			return eventDictionary [key];
+			gameEvent = eventDictionary [key];
 		else
-			return null;
+			gameEvent = null;
 	}
 }

@@ -58,7 +58,10 @@ public class CheckpointGuard : BaseGuard {
 			if(hit.collider.name == targetName)
 			{
 				if(distanceFromUnit < detectionRadius && dotProduct > 0.75f)
+				{
+					IsTriggered = true;
 					return true;
+				}
 			}
 		}
 		return false;

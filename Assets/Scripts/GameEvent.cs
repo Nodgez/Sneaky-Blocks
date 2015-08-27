@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public delegate void OnHandleEvent();
 
-public class GameEvent : MonoBehaviour {
+public class GameEvent {
 
 	public event OnHandleEvent onHandleEvent;
 	private List<ITrigger> eventTriggers = new List<ITrigger>();
