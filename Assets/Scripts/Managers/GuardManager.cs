@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class GuardManager : MonoBehaviour, ITrigger {
 
-	private List<BaseGuard> guards = new List<BaseGuard>();
+	private List<BaseGuard> _guards = new List<BaseGuard>();
 	public Transform guardTarget;
 
 	void Start () {
@@ -12,7 +12,7 @@ public class GuardManager : MonoBehaviour, ITrigger {
 		foreach (GameObject go in guardObjects) {
 			BaseGuard guard = go.GetComponent<BaseGuard>();
 			guard.targetName = guardTarget.name;
-			guards.Add(guard);
+			_guards.Add(guard);
 		}
 
 		if (guardTarget == null) {
@@ -20,27 +20,19 @@ public class GuardManager : MonoBehaviour, ITrigger {
 			Debug.Log("No Target Available");
 		}
 
-		GameEvent playerFound = new GameEvent ();
-		playerFound.AddEventTrigger (this);
-
 		EventPool eventPool = GameObject.FindObjectOfType<EventPool> ();
-		eventPool.AddEventToPool ("Player Found",ref playerFound);
+		eventPool.AddTriggerToEvent ("Player Found", this);
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		if (guards == null || IsTriggered)
+		if (_guards == null || IsTriggered)
 			return;
 
-		foreach (BaseGuard guard in guards) {
+		foreach (BaseGuard guard in _guards) {
 			guard.Seek ();
 			IsTriggered = guard.DetectUnit(guardTarget.position);
 		}
-	}
-
-	public List<BaseGuard> Guards {
-		get{ return guards;}
-		set{ guards = value;}
 	}
 
 	public bool IsTriggered {

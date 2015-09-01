@@ -4,23 +4,19 @@ using System.Collections;
  * Upon detection of the player's presence,
  * Clear this level and load another one.
  */
-public class Exit : ProximityDetector {
+[RequireComponent(typeof(ProximityDetector))]
+public class Exit : MonoBehaviour {
+	private ProximityDetector _detector;
 
-	public override bool Detect (Vector3 position)
+	void Start()
 	{
-		if (base.Detect (position))
+		_detector = GetComponent<ProximityDetector> ();
+	}
+
+	void Update()
+	{
+		if (_detector.DetectTargets ())
 			Application.LoadLevel (0);
 
-		return false;
-	}
-	public string TargetName {
-		get;
-		set;
-	}
-
-	void OnDrawGizmos()
-	{
-		Gizmos.color = Color.green;
-		Gizmos.DrawCube (transform.position, Vector3.one);
 	}
 }

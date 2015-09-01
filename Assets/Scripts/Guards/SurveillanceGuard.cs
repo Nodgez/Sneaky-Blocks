@@ -5,40 +5,40 @@ public class SurveillanceGuard : BaseGuard {
 
 	public SurveyInfo[] surveys;
 
-	private int currentSurvey = 0;
-	private float slerpValue;
-	private float surveyTimer;
-	private Quaternion snapshotRotation;
-	private bool rotationSnapped;
+	private int _currentSurvey = 0;
+	private float _slerpValue;
+	private float _surveyTimer;
+	private Quaternion _snapshotRotation;
+	private bool _rotationSnapped;
 
 	public override void Seek ()
 	{
-		if (currentSurvey >= surveys.Length) {
-			currentSurvey = 0;
+		if (_currentSurvey >= surveys.Length) {
+			_currentSurvey = 0;
 		}
 		
-		if (!rotationSnapped) {
-			snapshotRotation = transform.rotation;
-			rotationSnapped = true;
+		if (!_rotationSnapped) {
+			_snapshotRotation = transform.rotation;
+			_rotationSnapped = true;
 		}
 		
-		SurveyInfo survey = surveys [currentSurvey];
-		if(surveyTimer < survey.surveyTime)
+		SurveyInfo survey = surveys [_currentSurvey];
+		if(_surveyTimer < survey.surveyTime)
 		{
-			slerpValue += Time.deltaTime / (survey.surveyTime * 0.5f);
-			slerpValue = Mathf.Clamp01(slerpValue);
-			surveyTimer += Time.deltaTime;
-			transform.rotation = Quaternion.Slerp(snapshotRotation,
-			                                      Quaternion.Euler(surveys[currentSurvey].surveyEuler),
-			                                      slerpValue);
+			_slerpValue += Time.deltaTime / (survey.surveyTime * 0.5f);
+			_slerpValue = Mathf.Clamp01(_slerpValue);
+			_surveyTimer += Time.deltaTime;
+			transform.rotation = Quaternion.Slerp(_snapshotRotation,
+			                                      Quaternion.Euler(surveys[_currentSurvey].surveyEuler),
+			                                      _slerpValue);
 			
 		}
 		else
 		{
-			rotationSnapped = false;
-			surveyTimer = 0;
-			currentSurvey ++;
-			slerpValue = 0;
+			_rotationSnapped = false;
+			_surveyTimer = 0;
+			_currentSurvey ++;
+			_slerpValue = 0;
 		}
 	}
 

@@ -3,18 +3,16 @@ using System.Collections;
 
 public class CameraBehavior : MonoBehaviour {
 
-	private EventPool eventPool;
-
 	public Transform targetTransform;
 	public float minZoom = 3;
 	public float maxZoom = 7;
 
 	void Start () {
-		eventPool = GameObject.FindObjectOfType<EventPool> ();
+		EventPool eventPool = GameObject.FindObjectOfType<EventPool> ();
 
-		GameEvent gameEvent;
-		eventPool.GetEventFromPool ("Player Found", out gameEvent);
-		gameEvent.onHandleEvent += EventZoom;
+		GameEvent playerFoundEvent;
+		eventPool.GetEventFromPool ("Player Found", out playerFoundEvent);
+		playerFoundEvent.onHandleEvent += EventZoom;
 	}
 	
 	void Update () {

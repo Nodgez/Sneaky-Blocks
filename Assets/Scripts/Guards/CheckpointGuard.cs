@@ -7,39 +7,39 @@ public class CheckpointGuard : BaseGuard {
 	public float rotationSpeed = 2.5f;
 	public float movementSpeed = 2.5f;
 
-	private BaseCheckpoint targetCheckpoint;
-	private int currentCheckpointIndex;
-	private bool loopingBack;
-	private Vector3 direction;
-	private Quaternion rotationAtLastCheckpoint;
-	private float slerpValue = 0;
+	private BaseCheckpoint _targetCheckpoint;
+	private int _currentCheckpointIndex;
+	private bool _loopingBack;
+	private Vector3 _direction;
+	private Quaternion _rotationAtLastCheckpoint;
+	private float _slerpValue = 0;
 
 	void Start()
 	{
-		rotationAtLastCheckpoint = transform.rotation;
+		_rotationAtLastCheckpoint = transform.rotation;
 	}
 
 	public override void Seek()
 	{
-		direction = targetCheckpoint.Position - this.transform.position;
+		_direction = _targetCheckpoint.Position - this.transform.position;
 
-		if (!targetCheckpoint.Reached (this.transform.position)) {
-			slerpValue += Time.deltaTime * movementSpeed;
-			slerpValue = Mathf.Clamp01(slerpValue);
-			this.transform.position += direction.normalized * Time.deltaTime * rotationSpeed; //change to speed
-			float angle = Mathf.Atan2(-direction.z,direction.x) * Mathf.Rad2Deg;
+		if (!_targetCheckpoint.Reached (this.transform.position)) {
+			_slerpValue += Time.deltaTime * movementSpeed;
+			_slerpValue = Mathf.Clamp01(_slerpValue);
+			this.transform.position += _direction.normalized * Time.deltaTime * rotationSpeed; //change to speed
+			float angle = Mathf.Atan2(-_direction.z,_direction.x) * Mathf.Rad2Deg;
 			Quaternion rotation = Quaternion.AngleAxis(angle,Vector3.up);
-			transform.rotation = Quaternion.Slerp(rotationAtLastCheckpoint, rotation,slerpValue);
+			transform.rotation = Quaternion.Slerp(_rotationAtLastCheckpoint, rotation,_slerpValue);
 			return;
 		}
 
-		slerpValue = 0;
-		if (!targetCheckpoint.ApplyCheckpointAction (this.transform))
+		_slerpValue = 0;
+		if (!_targetCheckpoint.ApplyCheckpointAction (this.transform))
 			return;
 
-		rotationAtLastCheckpoint = transform.rotation;
-		targetCheckpoint = targetCheckpoint.AdjacentCheckpoint;
-		direction = targetCheckpoint.Position - this.transform.position;
+		_rotationAtLastCheckpoint = transform.rotation;
+		_targetCheckpoint = _targetCheckpoint.AdjacentCheckpoint;
+		_direction = _targetCheckpoint.Position - this.transform.position;
 	}
 
 	public override bool DetectUnit(Vector3 position)
@@ -68,7 +68,7 @@ public class CheckpointGuard : BaseGuard {
 
 	public BaseCheckpoint TargetCheckpoint
 	{
-		get { return targetCheckpoint;}
-		set { targetCheckpoint = value;}
+		get { return _targetCheckpoint;}
+		set { _targetCheckpoint = value;}
 	}
 }
