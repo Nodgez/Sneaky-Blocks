@@ -19,6 +19,7 @@ public class CheckpointGuard : BaseGuard {
 		_rotationAtLastCheckpoint = transform.rotation;
 	}
 
+	//Seeks around the map via following checkpoints
 	public override void Seek()
 	{
 		_direction = _targetCheckpoint.Position - this.transform.position;
@@ -34,14 +35,17 @@ public class CheckpointGuard : BaseGuard {
 		}
 
 		_slerpValue = 0;
+		//if action at checpoint isn't complete then leave
 		if (!_targetCheckpoint.ApplyCheckpointAction (this.transform))
 			return;
 
+		//Store new values fro moving to next checkpoint
 		_rotationAtLastCheckpoint = transform.rotation;
 		_targetCheckpoint = _targetCheckpoint.AdjacentCheckpoint;
 		_direction = _targetCheckpoint.Position - this.transform.position;
 	}
 
+	//Detects Unity using Line casting and view angle
 	public override bool DetectUnit(Vector3 position)
 	{
 		Vector3 directionToPlayer = position - transform.position;

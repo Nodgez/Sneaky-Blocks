@@ -10,23 +10,34 @@ public class DefensiveWall : MonoBehaviour, ITrigger {
 	public bool IsTriggered { get; set; }
 
 	private Renderer _renderer;
-	private Animator _animator;
-	
+	private float _colorLerp;
+	private Color _initialColor;
+
 	void Start()
 	{
 		_renderer = GetComponent<Renderer> ();
-		_animator = GetComponent<Animator> ();
+		_initialColor = _renderer.material.color;
 		EventPool eventPool = GameObject.FindObjectOfType<EventPool> ();
 		eventPool.AddTriggerToEvent ("Player Found", playerDetector);
 	}
 	
 	void Update () {
-		Transform detectedTransform;
+		//if there is a guard near by, update towards off values
+		//else if not, update towards on values
 		if (guardDetector.DetectTargets ()) {
-			_animator.SetBool ("Fading", true);
-		} else if (_animator.GetBool ("Fading")) {
-			_animator.SetBool ("Fading", false);
-			_animator.SetTrigger("FadeIn");
+			playerDetector.detectionDistance = 0;
+			_colorLerp += Time.deltaTime;
+			_colorLerp = Mathf.Clamp01 (_colorLerp);
+			_renderer.material.SetColor("_Color", 
+			                            Color.Lerp (_initialColor, new Color (0, 0, 0, 0), _colorLerp));
+
+		} else if(_colorLerp > 0) {
+			_colorLerp -= Time.deltaTime;
+			_colorLerp = Mathf.Clamp01 (_colorLerp);
+			_renderer.material.SetColor("_Color", 
+			                            Color.Lerp (_initialColor, new Color (0, 0, 0, 0), _colorLerp));
+			if(_colorLerp < 0.1f)
+				playerDetector.detectionDistance = 1;
 		}
 
 		if (playerDetector.DetectTargets ()) {

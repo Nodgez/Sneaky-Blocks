@@ -2,6 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 
+/// <summary>
+///A manager for all events 
+/// </summary>
 public class EventPool : MonoBehaviour {
 
 	private Dictionary <string, GameEvent> _eventDictionary = new Dictionary<string, GameEvent>();
@@ -19,6 +22,8 @@ public class EventPool : MonoBehaviour {
 			_eventDictionary [s].CheckEventTriggered ();
 	}
 
+	//Adds a game event to the collection of events if it does not exist
+	//or replaces the event with the Key if it does exist
 	public void AddEventToPool(string key, ref GameEvent gameEvent)
 	{
 		if (!_eventDictionary.ContainsKey (key))
@@ -27,6 +32,7 @@ public class EventPool : MonoBehaviour {
 			_eventDictionary [key] = gameEvent;
 	}
 
+	//Out's a game event if it exists otherwise it will out null
 	public void GetEventFromPool(string key, out GameEvent gameEvent)
 	{
 		if (_eventDictionary.ContainsKey (key))
@@ -35,6 +41,7 @@ public class EventPool : MonoBehaviour {
 			gameEvent = null;
 	}
 
+	//Adds a trigger to the event of your choice
 	public void AddTriggerToEvent(string key, ITrigger trigger)
 	{
 		if (_eventDictionary.ContainsKey (key))

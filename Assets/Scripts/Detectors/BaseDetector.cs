@@ -1,6 +1,8 @@
 using UnityEngine;
 using System.Collections;
-
+/// <summary>
+/// Absract class for Detector type objects, doubling as triggers
+/// </summary>
 public abstract class BaseDetector : MonoBehaviour, ITrigger
 {
 	public Transform[] targetTransforms;

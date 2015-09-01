@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+/// <summary>
+/// Timed checkpoint.
+/// </summary>
 public class TimedCheckpoint : BaseCheckpoint {
 
 	public float waitTime  = 1;

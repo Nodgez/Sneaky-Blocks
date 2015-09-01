@@ -12,6 +12,7 @@ public class SurveyCheckpoint : BaseCheckpoint{
 
 	public override bool ApplyCheckpointAction (Transform transform)
 	{
+		//Ensure transform is directly at the checkpooint position
 		transform.position = this.Position;
 
 		if (currentSurvey >= surveys.Length) {
@@ -19,6 +20,7 @@ public class SurveyCheckpoint : BaseCheckpoint{
 			return true;
 		}
 
+		//take a snapshot of the current rotation for slerping
 		if (!rotationSnapped) {
 			sanpshotRotation = transform.rotation;
 			rotationSnapped = true;
@@ -47,6 +49,9 @@ public class SurveyCheckpoint : BaseCheckpoint{
 	}
 }
 
+/// <summary>
+/// A struct of informtation for surveillance
+/// </summary>
 [System.Serializable]
 public struct SurveyInfo
 {

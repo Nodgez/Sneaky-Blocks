@@ -11,6 +11,7 @@ public class SurveillanceGuard : BaseGuard {
 	private Quaternion _snapshotRotation;
 	private bool _rotationSnapped;
 
+	//Seeks for Player based on survey info i.e. rotations
 	public override void Seek ()
 	{
 		if (_currentSurvey >= surveys.Length) {
@@ -42,6 +43,7 @@ public class SurveillanceGuard : BaseGuard {
 		}
 	}
 
+	//Detect unit using line casting and view angle
 	public override bool DetectUnit (Vector3 position)
 	{
 		Vector3 directionToPlayer = position - transform.position;

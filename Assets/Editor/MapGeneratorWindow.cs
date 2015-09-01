@@ -31,6 +31,10 @@ public class MapGeneratorWindow : EditorWindow {
 			Combine ();
 		}
 
+		if (GUILayout.Button ("Combine Children")) {
+			Combine ();
+		}
+
 		GUILayout.EndHorizontal ();
 		EditorUtility.SetDirty (this);
 	}
