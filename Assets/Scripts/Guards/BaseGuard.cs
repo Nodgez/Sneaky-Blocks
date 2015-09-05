@@ -6,6 +6,7 @@ using System.Collections;
 public abstract class BaseGuard : MonoBehaviour {
 
 	public float detectionRadius = 5f;
+	public int viewAngle;
 	public string targetName;
 
 	public abstract void Seek ();

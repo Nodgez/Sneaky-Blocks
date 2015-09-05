@@ -35,6 +35,8 @@ public class GuardManager : MonoBehaviour, ITrigger {
 			return;
 
 		foreach (BaseGuard guard in _guards) {
+			if(IsTriggered)
+				break;
 			guard.Seek ();
 			IsTriggered = guard.DetectUnit(guardTarget.position);
 		}

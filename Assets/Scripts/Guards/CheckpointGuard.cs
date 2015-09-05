@@ -21,7 +21,7 @@ public class CheckpointGuard : BaseGuard {
 
 	//Seeks around the map via following checkpoints
 	public override void Seek()
-	{
+	{			
 		_direction = _targetCheckpoint.Position - this.transform.position;
 
 		if (!_targetCheckpoint.Reached (this.transform.position)) {
@@ -61,7 +61,8 @@ public class CheckpointGuard : BaseGuard {
 			Debug.DrawLine(transform.position,position,Color.yellow);
 			if(hit.collider.name == targetName)
 			{
-				if(distanceFromUnit < detectionRadius && dotProduct > 0.75f)
+				float angleToDot = Mathf.Cos (viewAngle * Mathf.Deg2Rad);
+				if(distanceFromUnit < detectionRadius && dotProduct > angleToDot)
 				{
 					return true;
 				}

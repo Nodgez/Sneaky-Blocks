@@ -8,7 +8,6 @@ public class LevelSelection : MonoBehaviour {
 	public Button buttonPrefab;
 
 	void Start () {
-		RectTransform buttonRectTransform = buttonPrefab.transform as RectTransform;
 		RectTransform rectTransform = transform as RectTransform;
 		GridLayoutGroup grid = GetComponent<GridLayoutGroup> ();
 		float cellHeight = rectTransform.rect.height / 3;
