@@ -10,11 +10,13 @@ public class TimedCheckpoint : BaseCheckpoint {
 
 	public override bool ApplyCheckpointAction (Transform transform)
 	{
-		if (waitTime < waitTimer) {
+		if (waitTimer < waitTime) {
+			waitTimer += Time.deltaTime;
 			transform.position = this.Position;
 			return false;
 		}
 
+		waitTimer = 0;
 		return true;
 	}
 }

@@ -25,9 +25,9 @@ public class CheckpointGuard : BaseGuard {
 		_direction = _targetCheckpoint.Position - this.transform.position;
 
 		if (!_targetCheckpoint.Reached (this.transform.position)) {
-			_slerpValue += Time.deltaTime * movementSpeed;
+			_slerpValue += Time.deltaTime * rotationSpeed;
 			_slerpValue = Mathf.Clamp01(_slerpValue);
-			this.transform.position += _direction.normalized * Time.deltaTime * rotationSpeed; //change to speed
+			this.transform.position += _direction.normalized * Time.deltaTime * movementSpeed; //change to speed
 			float angle = Mathf.Atan2(-_direction.z,_direction.x) * Mathf.Rad2Deg;
 			Quaternion rotation = Quaternion.AngleAxis(angle,Vector3.up);
 			transform.rotation = Quaternion.Slerp(_rotationAtLastCheckpoint, rotation,_slerpValue);
@@ -54,11 +54,10 @@ public class CheckpointGuard : BaseGuard {
 		float dotProduct = 0;
 		dotProduct = Vector3.Dot(directionToPlayer,transform.right);
 		RaycastHit hit;
-		Debug.DrawRay (transform.position, transform.right * detectionRadius, Color.red);
-		
-		if(Physics.Linecast(transform.position,position,out hit))
+
+		if(Physics.Linecast(transform.position,position,out hit,detectionLayers))
 		{
-			Debug.DrawLine(transform.position,position,Color.yellow);
+			Debug.DrawLine(transform.position,position,Color.green);
 			if(hit.collider.name == targetName)
 			{
 				float angleToDot = Mathf.Cos (viewAngle * Mathf.Deg2Rad);

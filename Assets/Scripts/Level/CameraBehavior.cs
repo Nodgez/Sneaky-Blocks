@@ -29,6 +29,10 @@ public class CameraBehavior : MonoBehaviour {
 		_zoomLerp += Time.unscaledDeltaTime;
 		cameraSize = _storedSize + Mathf.Clamp01(_zoomLerp) * (minZoom - _storedSize);
 		Camera.main.orthographicSize = cameraSize;
+
+		if (cameraSize == minZoom) {
+			Application.LoadLevel (Application.loadedLevel);
+		}
 	}
 
 	//zoom properties set on event

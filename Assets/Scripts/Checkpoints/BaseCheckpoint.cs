@@ -18,8 +18,9 @@ public class BaseCheckpoint : MonoBehaviour {
 	
 	public virtual bool Reached(Vector3 position)
 	{
-		if (Vector3.Distance (position, this.Position) > triggerDistance)
+		if (Vector3.Distance (position, this.Position) > triggerDistance) {
 			return false;
+		}
 
 		return true;
 	}

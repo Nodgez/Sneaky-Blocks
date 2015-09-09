@@ -9,7 +9,7 @@ public class CheckpointPath : MonoBehaviour {
 
 	void Start()
 	{
-		for (int i = 0; i < transform.childCount; i++)
+		for (int i = 1; i < transform.childCount; i++)
 			checkpoints.Add (transform.GetChild(i).GetComponent<BaseCheckpoint>());
 
 		ApplyNeightbours ();

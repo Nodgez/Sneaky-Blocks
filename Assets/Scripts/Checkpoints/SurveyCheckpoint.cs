@@ -4,6 +4,8 @@ using System.Collections;
 public class SurveyCheckpoint : BaseCheckpoint{
 	
 	public SurveyInfo[] surveys;
+	public float surveyTimeScale = 0.5f;
+
 	private int currentSurvey = 0;
 	private float surveyTimer = 0;
 	private Quaternion sanpshotRotation;
@@ -29,7 +31,7 @@ public class SurveyCheckpoint : BaseCheckpoint{
 		SurveyInfo survey = surveys [currentSurvey];
 		if(surveyTimer < survey.surveyTime)
 		{
-			slerpValue += Time.deltaTime / (survey.surveyTime * 0.5f);
+			slerpValue += Time.deltaTime / (survey.surveyTime * surveyTimeScale);
 			slerpValue = Mathf.Clamp01(slerpValue);
 			surveyTimer += Time.deltaTime;
 			transform.rotation = Quaternion.Slerp(sanpshotRotation,

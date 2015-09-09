@@ -45,6 +45,9 @@ public class CheckpointEditor : PlacementEditor {
 			case CheckpointType.Survey:
 				checkpointScript = go.AddComponent<SurveyCheckpoint>();
 				break;
+			case CheckpointType.Timed:
+				checkpointScript = go.AddComponent<TimedCheckpoint>();
+				break;
 			}
 			break;
 		case EventType.KeyUp:
@@ -65,12 +68,13 @@ public class CheckpointEditor : PlacementEditor {
 	{
 		GUIStyle style = new GUIStyle ();
 		style.fontSize = 12;
-		style.normal.textColor = Color.white;
-		for (int i = 0; i < checkpointPath.transform.childCount; i++) {
-			int nextCheckpointindex = i < checkpointPath.transform.childCount ? i : 0;
+		style.normal.textColor = Color.black;
+		//1st child is always the guard on the path
+		for (int i = 1; i < checkpointPath.transform.childCount; i++) {
+			int nextCheckpointindex = i < checkpointPath.transform.childCount ? i : 1;
 			Vector3 checkpointPosition = checkpointPath.transform.GetChild (i).position;
 			Vector3 adjacentcheckpointPosition = checkpointPath.transform.GetChild (nextCheckpointindex).position;
-			Handles.Label (checkpointPosition, "CP " + (i + 1), style);
+			Handles.Label (checkpointPosition, "CP " + (i), style);
 		}
 	}
 }
@@ -79,5 +83,6 @@ public enum CheckpointType
 {
 	Normal = 0,
 	Teleport = 1,
-	Survey = 2
+	Survey = 2,
+	Timed = 3
 }

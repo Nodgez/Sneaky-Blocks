@@ -4,6 +4,7 @@ using System.Collections;
 public class SurveillanceGuard : BaseGuard {
 
 	public SurveyInfo[] surveys;
+	public float surveyTimeScale = 0.5f;
 
 	private int _currentSurvey = 0;
 	private float _slerpValue;
@@ -26,7 +27,7 @@ public class SurveillanceGuard : BaseGuard {
 		SurveyInfo survey = surveys [_currentSurvey];
 		if(_surveyTimer < survey.surveyTime)
 		{
-			_slerpValue += Time.deltaTime / (survey.surveyTime * 0.5f);
+			_slerpValue += Time.deltaTime / (survey.surveyTime * surveyTimeScale);
 			_slerpValue = Mathf.Clamp01(_slerpValue);
 			_surveyTimer += Time.deltaTime;
 			transform.rotation = Quaternion.Slerp(_snapshotRotation,
