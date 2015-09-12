@@ -31,6 +31,7 @@ public class CameraBehavior : MonoBehaviour {
 		Camera.main.orthographicSize = cameraSize;
 
 		if (cameraSize == minZoom) {
+			Time.timeScale = 1;
 			Application.LoadLevel (Application.loadedLevel);
 		}
 	}

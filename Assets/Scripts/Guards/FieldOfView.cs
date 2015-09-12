@@ -3,20 +3,20 @@ using System.Collections;
 
 public class FieldOfView : MonoBehaviour {
 
-	Mesh mesh;
-	MeshFilter meshFilter;
-	GameObject viewMesh;
+	private Mesh _mesh;
+	private MeshFilter _meshFilter;
+	private GameObject _viewMesh;
+
 	public Material viewMaterial;
 	public int viewAngle;
 	public float radius;
 	
 	void Awake()
 	{
-		mesh = new Mesh ();
+		_mesh = new Mesh ();
 		gameObject.AddComponent<MeshRenderer> ().sharedMaterial = viewMaterial;
-		meshFilter = gameObject.AddComponent<MeshFilter> ();
-		meshFilter.mesh = mesh;
-		//DrawFOV ();
+		_meshFilter = gameObject.AddComponent<MeshFilter> ();
+		_meshFilter.mesh = _mesh;
 	}
 
 	void Update()
@@ -36,9 +36,9 @@ public class FieldOfView : MonoBehaviour {
 			float z = this.transform.position.z;
 			float yRot = transform.rotation.eulerAngles.y;
 
-			Vector3 point1 = new Vector3(x + radius * Mathf.Cos(((i) - yRot) * Mathf.Deg2Rad),
+			Vector3 point1 = new Vector3(x + radius * Mathf.Cos((i - yRot) * Mathf.Deg2Rad),
 			                             this.transform.position.y,
-			                             z + radius * Mathf.Sin(((i) - yRot) * Mathf.Deg2Rad));
+			                             z + radius * Mathf.Sin((i - yRot) * Mathf.Deg2Rad));
 
 			RaycastHit hit;
 			Ray ray = new Ray(transform.position
@@ -61,7 +61,7 @@ public class FieldOfView : MonoBehaviour {
 			indices[j + 2] = points.Length -1;
 		}
 		
-		mesh.vertices = points;
-		mesh.triangles = indices;
+		_mesh.vertices = points;
+		_mesh.triangles = indices;
 	}
 }

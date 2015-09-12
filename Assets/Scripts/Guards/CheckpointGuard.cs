@@ -22,6 +22,7 @@ public class CheckpointGuard : BaseGuard {
 	//Seeks around the map via following checkpoints
 	public override void Seek()
 	{			
+		losDetector_.DetectTargets ();
 		_direction = _targetCheckpoint.Position - this.transform.position;
 
 		if (!_targetCheckpoint.Reached (this.transform.position)) {
@@ -44,31 +45,31 @@ public class CheckpointGuard : BaseGuard {
 		_targetCheckpoint = _targetCheckpoint.AdjacentCheckpoint;
 		_direction = _targetCheckpoint.Position - this.transform.position;
 	}
-
-	//Detects Unity using Line casting and view angle
-	public override bool DetectUnit(Vector3 position)
-	{
-		Vector3 directionToPlayer = position - transform.position;
-		float distanceFromUnit = Vector3.Distance (position, transform.position);
-		directionToPlayer = directionToPlayer.normalized;
-		float dotProduct = 0;
-		dotProduct = Vector3.Dot(directionToPlayer,transform.right);
-		RaycastHit hit;
-
-		if(Physics.Linecast(transform.position,position,out hit,detectionLayers))
-		{
-			Debug.DrawLine(transform.position,position,Color.green);
-			if(hit.collider.name == targetName)
-			{
-				float angleToDot = Mathf.Cos (viewAngle * Mathf.Deg2Rad);
-				if(distanceFromUnit < detectionRadius && dotProduct > angleToDot)
-				{
-					return true;
-				}
-			}
-		}
-		return false;
-	}
+//
+//	//Detects Unity using Line casting and view angle
+//	public override bool DetectUnit(Vector3 position)
+//	{
+//		Vector3 directionToPlayer = position - transform.position;
+//		float distanceFromUnit = Vector3.Distance (position, transform.position);
+//		directionToPlayer = directionToPlayer.normalized;
+//		float dotProduct = 0;
+//		dotProduct = Vector3.Dot(directionToPlayer,transform.right);
+//		RaycastHit hit;
+//
+//		if(Physics.Linecast(transform.position,position,out hit,detectionLayers))
+//		{
+//			Debug.DrawLine(transform.position,position,Color.green);
+//			if(hit.collider.name == targetName)
+//			{
+//				float angleToDot = Mathf.Cos (viewAngle * Mathf.Deg2Rad);
+//				if(distanceFromUnit < detectionRadius && dotProduct > angleToDot)
+//				{
+//					return true;
+//				}
+//			}
+//		}
+//		return false;
+//	}
 
 	public BaseCheckpoint TargetCheckpoint
 	{

@@ -7,10 +7,10 @@ public delegate void OnHandleEvent();
 public class GameEvent {
 
 	public event OnHandleEvent onHandleEvent;
-	private List<ITrigger> eventTriggers = new List<ITrigger>();
+	private List<Trigger> eventTriggers = new List<Trigger>();
 
 	public void CheckEventTriggered () {
-		foreach (ITrigger eventTrigger in eventTriggers) {
+		foreach (Trigger eventTrigger in eventTriggers) {
 			if (eventTrigger.IsTriggered) {
 
 				if(onHandleEvent != null)
@@ -21,7 +21,7 @@ public class GameEvent {
 		}
 	}
 
-	public void AddEventTrigger(ITrigger trigger)
+	public void AddEventTrigger(Trigger trigger)
 	{
 		eventTriggers.Add (trigger);
 	}

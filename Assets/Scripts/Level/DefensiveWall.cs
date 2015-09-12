@@ -16,9 +16,9 @@ public class DefensiveWall : MonoBehaviour, ITrigger {
 	void Start()
 	{
 		_renderer = GetComponent<Renderer> ();
-		_initialColor = _renderer.material.color;
+		_initialColor = _renderer.material.GetColor("_TintColor");
 		EventPool eventPool = GameObject.FindObjectOfType<EventPool> ();
-		eventPool.AddTriggerToEvent ("Player Found", playerDetector);
+		eventPool.AddTriggerToEvent ("Player Found", playerDetector.Trigger);
 	}
 	
 	void Update () {
@@ -28,20 +28,18 @@ public class DefensiveWall : MonoBehaviour, ITrigger {
 			playerDetector.detectionDistance = 0;
 			_colorLerp += Time.deltaTime;
 			_colorLerp = Mathf.Clamp01 (_colorLerp);
-			_renderer.material.SetColor("_Color", 
+			_renderer.material.SetColor("_TintColor", 
 			                            Color.Lerp (_initialColor, new Color (0, 0, 0, 0), _colorLerp));
 
 		} else if(_colorLerp > 0) {
 			_colorLerp -= Time.deltaTime;
 			_colorLerp = Mathf.Clamp01 (_colorLerp);
-			_renderer.material.SetColor("_Color", 
+			_renderer.material.SetColor("_TintColor", 
 			                            Color.Lerp (_initialColor, new Color (0, 0, 0, 0), _colorLerp));
-			if(_colorLerp < 0.1f)
+			if(_colorLerp < 0.5f)
 				playerDetector.detectionDistance = 1;
 		}
 
-		if (playerDetector.DetectTargets ()) {
-
-		}
+		playerDetector.DetectTargets ();
 	}
 }

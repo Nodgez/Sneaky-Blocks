@@ -5,7 +5,7 @@ using System.Collections.Generic;
 /// <summary>
 ///Updates all guards and acts as a trigger for events 
 /// </summary>
-public class GuardManager : MonoBehaviour, ITrigger {
+public class GuardManager : MonoBehaviour {
 
 	private List<BaseGuard> _guards = new List<BaseGuard>();
 	public Transform guardTarget;
@@ -24,26 +24,15 @@ public class GuardManager : MonoBehaviour, ITrigger {
 			guardTarget = this.transform;
 			Debug.Log("No Target Available");
 		}
-		//Find the event pool and add this to the collection of triggers for "Player Found" event
-		EventPool eventPool = GameObject.FindObjectOfType<EventPool> ();
-		eventPool.AddTriggerToEvent ("Player Found", this);
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		if (_guards == null || IsTriggered)
+		if (_guards == null)
 			return;
 
 		foreach (BaseGuard guard in _guards) {
-			if(IsTriggered)
-				break;
 			guard.Seek ();
-			IsTriggered = guard.DetectUnit(guardTarget.position);
 		}
-	}
-
-	public bool IsTriggered {
-		get;
-		set;
 	}
 }

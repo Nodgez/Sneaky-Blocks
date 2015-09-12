@@ -16,6 +16,12 @@ public class EventPool : MonoBehaviour {
 		AddEventToPool ("Player Found", ref playerFound);
 		AddEventToPool ("End Of Level", ref endOfLevel);
 	}
+
+	void Start()
+	{
+		//ensures that the time scale has been reset N.B.* should be moved somewhere more meaningful
+		Time.timeScale = 1;
+	}
 	
 	void Update () {
 		foreach (string s in _eventDictionary.Keys)
@@ -42,7 +48,7 @@ public class EventPool : MonoBehaviour {
 	}
 
 	//Adds a trigger to the event of your choice
-	public void AddTriggerToEvent(string key, ITrigger trigger)
+	public void AddTriggerToEvent(string key, Trigger trigger)
 	{
 		if (_eventDictionary.ContainsKey (key))
 			_eventDictionary [key].AddEventTrigger (trigger);
