@@ -6,15 +6,15 @@ using System.Collections.Generic;
 ///A manager for all events 
 /// </summary>
 public class EventPool : MonoBehaviour {
-
+	
+	public string[] eventNames;
 	private Dictionary <string, GameEvent> _eventDictionary = new Dictionary<string, GameEvent>();
 
 	void Awake () {
-		GameEvent playerFound = new GameEvent ();
-		GameEvent endOfLevel = new GameEvent ();
-
-		AddEventToPool ("Player Found", ref playerFound);
-		AddEventToPool ("End Of Level", ref endOfLevel);
+		for (int i = 0; i < eventNames.Length; i++) {
+			GameEvent gameEvent = new GameEvent();
+			AddEventToPool (eventNames[i], ref gameEvent);
+		}
 	}
 
 	void Start()
@@ -50,7 +50,10 @@ public class EventPool : MonoBehaviour {
 	//Adds a trigger to the event of your choice
 	public void AddTriggerToEvent(string key, Trigger trigger)
 	{
-		if (_eventDictionary.ContainsKey (key))
+		if (_eventDictionary.ContainsKey (key)) {
 			_eventDictionary [key].AddEventTrigger (trigger);
+			Debug.Log(trigger.ToString() + " added to " + key);
+
+		}
 	}
 }

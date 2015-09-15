@@ -7,7 +7,7 @@ public class LineOfSightDetector : BaseDetector {
 
 	public float angle;
 
-	public override void Start ()
+	void Start ()
 	{
 		FieldOfView fov = GetComponentInChildren<FieldOfView> ();
 		fov.radius = detectionDistance;
@@ -15,13 +15,13 @@ public class LineOfSightDetector : BaseDetector {
 
 		//convert the angle to radians
 		angle = Mathf.Cos (angle * Mathf.Deg2Rad);
-
-		base.Start ();
 	}
 
 	public override bool DetectTargets ()
 	{
 		Transform targetTransform = targetTransforms [0];
+		if (targetTransform == null)
+			return false;
 		Vector3 directionToPlayer = targetTransform.position - transform.position;
 		float distanceFromUnit = Vector3.Distance (targetTransform.position, transform.position);
 		directionToPlayer = directionToPlayer.normalized;
@@ -36,7 +36,7 @@ public class LineOfSightDetector : BaseDetector {
 			{
 				if(distanceFromUnit < detectionDistance && dotProduct > angle)
 				{
-					trigger_.IsTriggered = true;
+					Debug.Log("Target detected");
 					return true;
 				}
 			}
@@ -50,7 +50,6 @@ public class LineOfSightDetector : BaseDetector {
 		if(DetectTargets ())
 		{
 			targettransform = hit.transform;
-			trigger_.IsTriggered = true;
 			return true;
 		}
 		return false;

@@ -15,7 +15,7 @@ public class SurveillanceGuard : BaseGuard {
 	//Seeks for Player based on survey info i.e. rotations
 	public override void Seek ()
 	{
-		losDetector_.DetectTargets ();
+		trigger_.IsTriggered = losDetector_.DetectTargets ();
 
 		if (_currentSurvey >= surveys.Length) {
 			_currentSurvey = 0;
@@ -45,29 +45,4 @@ public class SurveillanceGuard : BaseGuard {
 			_slerpValue = 0;
 		}
 	}
-
-	//Detect unit using line casting and view angle
-//	public override bool DetectUnit (Vector3 position)
-//	{
-//		Vector3 directionToPlayer = position - transform.position;
-//		float distanceFromUnit = Vector3.Distance (position, transform.position);
-//		directionToPlayer = directionToPlayer.normalized;
-//		float dotProduct = 0;
-//		dotProduct = Vector3.Dot(directionToPlayer,transform.right);
-//		RaycastHit hit;
-//		Debug.DrawRay (transform.position, transform.right * detectionRadius, Color.red);
-//		
-//		if(Physics.Linecast(transform.position,position,out hit))
-//		{
-//			Debug.DrawLine(transform.position,position,Color.yellow);
-//			if(hit.collider.name == targetName)
-//			{
-//				if(distanceFromUnit < detectionRadius && dotProduct > 0.75f)
-//				{
-//					return true;
-//				}
-//			}
-//		}
-//		return false;
-//	}
 }

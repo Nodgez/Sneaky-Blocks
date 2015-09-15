@@ -32,7 +32,8 @@ public class GuardManager : MonoBehaviour {
 			return;
 
 		foreach (BaseGuard guard in _guards) {
-			guard.Seek ();
+			if(guard != null)
+				guard.Seek ();
 		}
 	}
 }

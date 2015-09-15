@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-[RequireComponent(typeof(ProximityDetector))]
-public class DefensiveWall : MonoBehaviour, ITrigger {
+[RequireComponent(typeof(Trigger))]
+public class DefensiveWall : MonoBehaviour {
 
 	public ProximityDetector guardDetector;
 	public ProximityDetector playerDetector;
@@ -12,13 +12,13 @@ public class DefensiveWall : MonoBehaviour, ITrigger {
 	private Renderer _renderer;
 	private float _colorLerp;
 	private Color _initialColor;
+	private Trigger _trigger;
 
 	void Start()
 	{
+		_trigger = GetComponent<Trigger> ();
 		_renderer = GetComponent<Renderer> ();
 		_initialColor = _renderer.material.GetColor("_TintColor");
-		EventPool eventPool = GameObject.FindObjectOfType<EventPool> ();
-		eventPool.AddTriggerToEvent ("Player Found", playerDetector.Trigger);
 	}
 	
 	void Update () {
@@ -40,6 +40,6 @@ public class DefensiveWall : MonoBehaviour, ITrigger {
 				playerDetector.detectionDistance = 1;
 		}
 
-		playerDetector.DetectTargets ();
+		_trigger.IsTriggered = playerDetector.DetectTargets ();
 	}
 }

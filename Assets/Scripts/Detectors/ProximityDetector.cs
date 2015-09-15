@@ -13,9 +13,10 @@ public class ProximityDetector : BaseDetector {
 			return false;
 
 		foreach (Transform t in targetTransforms) {
+			if(t == null)
+				continue;
 			if (Vector3.Distance (t.position, this.transform.position) <= detectionDistance)
 			{
-				trigger_.IsTriggered = true;
 				return true;
 			}
 		}
@@ -31,9 +32,10 @@ public class ProximityDetector : BaseDetector {
 			return false;
 		
 		foreach (Transform t in targetTransforms) {
+			if(t == null)
+				continue;
 			if (Vector3.Distance (t.position, this.transform.position) <= detectionDistance)
 			{
-				trigger_.IsTriggered = true;
 				targetTransform = t;
 				return true;
 			}
