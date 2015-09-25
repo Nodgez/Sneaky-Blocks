@@ -46,16 +46,18 @@ public class MapEditor : PlacementEditor {
 				if(childTrans.position == position)
 				{
 					DestroyImmediate(childTrans.gameObject);
+					NavMeshBuilder.BuildNavMesh();
 					return;
 				}
 			}
+
 			switch(blockType)
 			{
 			case BlockType.Wall:
 				Material wallMaterial = AssetDatabase.LoadAssetAtPath<Material> ("Assets/Materials/Wall.mat");
 				GameObject wallPart = GameObject.CreatePrimitive(PrimitiveType.Cube);
 				wallPart.transform.position = position;
-				wallPart.layer = LayerMask.NameToLayer("Wall");
+				wallPart.layer = 8;
 				wallPart.transform.SetParent(map.transform,true);
 				wallPart.isStatic = true;
 				wallPart.GetComponent<Renderer>().sharedMaterial = wallMaterial;
@@ -63,11 +65,22 @@ public class MapEditor : PlacementEditor {
 				break;
 			case BlockType.Defensive_Wall:
 				Material defensiveWallMaterial = AssetDatabase.LoadAssetAtPath<Material> ("Assets/Materials/DefensiveWall.mat");
-				Object defensiveWallPrefab = AssetDatabase.LoadAssetAtPath<Object>("Assets/Prefabs/Level/DefensiveWall.prefab");
+				Object defensiveWallPrefab = AssetDatabase.LoadAssetAtPath<Object>("Assets/Prefabs/Level/Optional/DefensiveWall.prefab");
 				GameObject defensiveWall = PrefabUtility.InstantiatePrefab(defensiveWallPrefab) as GameObject;
 				defensiveWall.transform.position = position;
 				defensiveWall.transform.SetParent(map.transform,true);
 				defensiveWall.GetComponent<Renderer>().sharedMaterial = defensiveWallMaterial;
+				NavMeshBuilder.BuildNavMesh();
+				break;
+			case BlockType.Destructable_Wall:
+				Material desWallMaterial = AssetDatabase.LoadAssetAtPath<Material> ("Assets/Materials/DestructableWall.mat");
+				GameObject destructableWall = GameObject.CreatePrimitive(PrimitiveType.Cube);
+				destructableWall.name = "D-Wall";
+				destructableWall.transform.position = position;
+				NavMeshObstacle obstacle = destructableWall.AddComponent<NavMeshObstacle>();
+				obstacle.carving = true;
+				destructableWall.transform.SetParent(map.transform,true);
+				destructableWall.GetComponent<Renderer>().sharedMaterial = desWallMaterial;
 				NavMeshBuilder.BuildNavMesh();
 				break;
 			}
@@ -91,4 +104,5 @@ public enum BlockType
 {
 	Wall,
 	Defensive_Wall,
+	Destructable_Wall
 }

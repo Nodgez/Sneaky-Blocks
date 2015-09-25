@@ -18,10 +18,10 @@ public class TeleporterCheckpoint : BaseCheckpoint {
 
 	void Update()
 	{
-		if (Vector3.Distance (playerTransform.position, this.transform.position) <= 1)
-		{
-			playerTransform.GetComponent<NavMeshAgent>().SetDestination(AdjacentCheckpoint.Position);
-			ApplyCheckpointAction (playerTransform);
-		}
+//		if (Vector3.Distance (playerTransform.position, this.transform.position) <= 1)
+//		{
+//			playerTransform.GetComponent<NavMeshAgent>().SetDestination(AdjacentCheckpoint.Position);
+//			ApplyCheckpointAction (playerTransform);
+//		}
 	}
 }

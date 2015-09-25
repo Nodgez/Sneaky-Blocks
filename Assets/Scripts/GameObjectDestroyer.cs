@@ -11,7 +11,8 @@ public class GameObjectDestroyer : MonoBehaviour {
 		EventPool eventPool = GameObject.FindObjectOfType<EventPool> ();
 		GameEvent triggerEvent;
 		eventPool.GetEventFromPool (trigger.eventKey, out triggerEvent);
-		triggerEvent.onHandleEvent += Remove;
+		if(triggerEvent != null)
+			triggerEvent.onHandleEvent += Remove;
 	}
 
 	public void Remove()

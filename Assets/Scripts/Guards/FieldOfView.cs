@@ -26,19 +26,22 @@ public class FieldOfView : MonoBehaviour {
 	
 	protected void DrawFOV()
 	{
-		Vector3[] points = new Vector3[(viewAngle * 2) + 1];
+		if (viewAngle % 2 != 0)
+			viewAngle += 1;
+		Vector3[] points = new Vector3[(viewAngle) + 1];
 		int[] indices = new int[(points.Length * 3) - 6];
 		points [points.Length -1] = this.transform.localPosition;
+		int threshHold = viewAngle / 2;
 
-		for(int i = -viewAngle;i < viewAngle;i++)
+		for(int i = -threshHold;i < threshHold;i++)
 		{
 			float x = this.transform.position.x;
 			float z = this.transform.position.z;
 			float yRot = transform.rotation.eulerAngles.y;
 
-			Vector3 point1 = new Vector3(x + radius * Mathf.Cos((i - yRot) * Mathf.Deg2Rad),
+			Vector3 point1 = new Vector3(x + radius * Mathf.Cos(((i * 2) - yRot) * Mathf.Deg2Rad),
 			                             this.transform.position.y,
-			                             z + radius * Mathf.Sin((i - yRot) * Mathf.Deg2Rad));
+			                             z + radius * Mathf.Sin(((i * 2) - yRot) * Mathf.Deg2Rad));
 
 			RaycastHit hit;
 			Ray ray = new Ray(transform.position
@@ -48,7 +51,7 @@ public class FieldOfView : MonoBehaviour {
 				point1 = hit.point;
 
 			point1 = transform.InverseTransformPoint(point1);
-			points[i + viewAngle] = point1;
+			points[i + threshHold] = point1;
 		}
 		
 		for(int j = 0;j < indices.Length;j += 3)

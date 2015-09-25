@@ -52,8 +52,8 @@ public class EventPool : MonoBehaviour {
 	{
 		if (_eventDictionary.ContainsKey (key)) {
 			_eventDictionary [key].AddEventTrigger (trigger);
-			Debug.Log(trigger.ToString() + " added to " + key);
-
-		}
+			Debug.Log (trigger.ToString () + " added to " + key);
+		} else
+			Debug.LogWarning (key + " is not registared in the event pool");
 	}
 }

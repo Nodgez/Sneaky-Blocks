@@ -15,6 +15,10 @@ public class SwitchLever : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		_switchTrigger.IsTriggered = _proxDetector.DetectTargets ();
+		if(_proxDetector.DetectTargets ())
+		{
+			_switchTrigger.IsTriggered = true;
+			this.gameObject.SetActive(false);
+		}
 	}
 }

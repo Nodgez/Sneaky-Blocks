@@ -27,7 +27,7 @@ public class CheckpointEditor : PlacementEditor {
 			GUIUtility.hotControl = controlID;
 			Vector3 position = SetPlacementPosition(e.mousePosition);
 
-			GameObject go = new GameObject(checkpointPath.tag);
+			GameObject go = new GameObject(checkpointPath.tag + " " + checkpointTypeToPlace);
 			go.transform.position = position;
 			go.tag = checkpointPath.tag;
 			go.transform.SetParent(checkpointPath.transform,true);
@@ -39,7 +39,7 @@ public class CheckpointEditor : PlacementEditor {
 				break;
 			case CheckpointType.Teleport:
 				checkpointScript = go.AddComponent<TeleporterCheckpoint>();
-				GameObject particles = AssetDatabase.LoadAssetAtPath<GameObject>(@"Assets\Prefabs\Partilces\Teleporter Particles Enter");
+				GameObject particles = AssetDatabase.LoadAssetAtPath<GameObject>(@"Assets\Prefabs\Particles\Teleporter Particles Enter");
 				particles.transform.SetParent(go.transform);
 				break;
 			case CheckpointType.Survey:

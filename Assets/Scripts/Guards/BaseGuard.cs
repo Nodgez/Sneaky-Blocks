@@ -9,7 +9,6 @@ public abstract class BaseGuard : MonoBehaviour {
 
 	public float detectionRadius = 5f;
 	public int viewAngle;
-	public string targetName;
 	public LayerMask detectionLayers;
 
 	protected LineOfSightDetector losDetector_;

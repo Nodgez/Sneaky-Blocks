@@ -19,6 +19,16 @@ public class DefensiveWall : MonoBehaviour {
 		_trigger = GetComponent<Trigger> ();
 		_renderer = GetComponent<Renderer> ();
 		_initialColor = _renderer.material.GetColor("_TintColor");
+
+		GameObject[] players = GameObject.FindGameObjectsWithTag ("Player");
+		playerDetector.targetTransforms = new Transform[] {players [0].transform};
+
+		BaseGuard[] guards = GameObject.FindObjectsOfType<BaseGuard> ();
+		guardDetector.targetTransforms = new Transform[guards.Length];
+		for(int i = 0 ; i < guards.Length;i++)
+		{
+			guardDetector.targetTransforms[i] = guards[i].transform;
+		}
 	}
 	
 	void Update () {
