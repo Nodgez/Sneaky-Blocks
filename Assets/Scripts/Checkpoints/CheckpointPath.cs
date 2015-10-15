@@ -24,7 +24,11 @@ public class CheckpointPath : MonoBehaviour {
 	{
 		for (int i = 0; i < checkpoints.Count; i++) {
 			int nextIndex = i < checkpoints.Count - 1 ? i + 1 : 0;
-			checkpoints[i].AdjacentCheckpoint = checkpoints[nextIndex];
+			BaseCheckpoint cp = checkpoints[i];
+			if(cp.GetType() == typeof(EndSearchCheckpoint))
+				cp.AdjacentCheckpoint = cp;
+			else
+				cp.AdjacentCheckpoint = checkpoints[nextIndex];
 		}
 	}
 

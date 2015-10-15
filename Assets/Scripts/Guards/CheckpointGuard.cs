@@ -22,6 +22,8 @@ public class CheckpointGuard : BaseGuard {
 	//Seeks around the map via following checkpoints
 	public override void Seek()
 	{			
+		if (_targetCheckpoint == null)
+			return;
 		trigger_.IsTriggered = losDetector_.DetectTargets ();
 		_direction = _targetCheckpoint.Position - this.transform.position;
 

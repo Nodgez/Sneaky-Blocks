@@ -68,13 +68,15 @@ public class CheckpointEditor : PlacementEditor {
 	{
 		GUIStyle style = new GUIStyle ();
 		style.fontSize = 12;
-		style.normal.textColor = Color.black;
+		style.normal.textColor = Color.gray;
 		//1st child is always the guard on the path
 		for (int i = 1; i < checkpointPath.transform.childCount; i++) {
-			int nextCheckpointindex = i < checkpointPath.transform.childCount ? i : 1;
+			int nextCheckpointindex = i < checkpointPath.transform.childCount - 1 ? i + 1 : 1;
 			Vector3 checkpointPosition = checkpointPath.transform.GetChild (i).position;
 			Vector3 adjacentcheckpointPosition = checkpointPath.transform.GetChild (nextCheckpointindex).position;
-			Handles.Label (checkpointPosition, "CP " + (i), style);
+			float travelTime = Vector3.Distance (checkpointPosition, adjacentcheckpointPosition) / 2.5f;
+
+			Handles.Label (checkpointPosition, "CP " + (i) + " :\n"+ travelTime.ToString("f2") + " Secs", style);
 		}
 	}
 }
