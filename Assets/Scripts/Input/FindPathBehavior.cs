@@ -2,7 +2,7 @@
 using System.Collections;
 
 [RequireComponent(typeof(NavMeshAgent))]
-public class FindPath : AbstractBehavior {
+public class FindPathBehavior : AbstractBehavior {
 
 	NavMeshAgent agent;
 	// Use this for initialization
@@ -20,5 +20,22 @@ public class FindPath : AbstractBehavior {
 			if(Physics.Raycast(ray, out hit))
 				agent.SetDestination(hit.point);
 		}
+	}
+
+	public Vector3 Destination {
+		get
+		{
+			return agent.destination;
+		}
+	}
+
+	public Vector3 MoveDirection
+	{
+		get
+		{
+			Vector3 direction = agent.destination - transform.position;
+			return direction.normalized;
+		}
+
 	}
 }
