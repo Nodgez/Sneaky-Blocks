@@ -3,12 +3,15 @@
 		_Color ("Color", Color) = (1,1,1,1)
 	}
 	SubShader {
-		Tags { "Queue"="Transparent" }
-		LOD 200
-		
+	pass
+	{
+		Tags { "Queue"="Transparent" "IgnoreProjector"="True" }
+		Blend SrcAlpha OneMinusSrcAlpha
 		CGPROGRAM
-		// Physically based Standard lighting model, and enable shadows on all light types
-		#pragma surface surf Standard fullforwardshadows
+
+		#pragma vertex vert
+		#pragma fragment frag
+		
 
 		// Use shader model 3.0 target, to get nicer looking lighting
 		#pragma target 3.0
@@ -16,16 +19,31 @@
 		struct Input {
 			float2 uv_MainTex;
 		};
+		
+		struct appdata
+		{
+			float4 vertex : POSITION;
+		};
+		
+		struct v2f
+		{
+			float4 pos : SV_POSITION;
+		};
 
 		fixed4 _Color;
 
-		void surf (Input IN, inout SurfaceOutputStandard o) {
-			// Albedo comes from a texture tinted by color
-			fixed4 c = _Color;
-			o.Albedo = c.rgb;
-			o.Alpha = c.a;
+		v2f vert(appdata input)
+		{
+			v2f output;
+			output.pos = mul(UNITY_MATRIX_MVP, input.vertex);
+			return output;
+		}
+		
+		float4 frag(v2f input) : COLOR
+		{
+			return _Color;
 		}
 		ENDCG
-	} 
-	FallBack "Diffuse"
+		} 
+	}
 }

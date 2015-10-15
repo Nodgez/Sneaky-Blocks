@@ -18,7 +18,7 @@ public class DefensiveWall : MonoBehaviour {
 	{
 		_trigger = GetComponent<Trigger> ();
 		_renderer = GetComponent<Renderer> ();
-		_initialColor = _renderer.material.GetColor("_TintColor");
+		_initialColor = _renderer.material.GetColor("_Color");
 
 		GameObject[] players = GameObject.FindGameObjectsWithTag ("Player");
 		playerDetector.targetTransforms = new Transform[] {players [0].transform};
@@ -38,13 +38,13 @@ public class DefensiveWall : MonoBehaviour {
 			playerDetector.detectionDistance = 0;
 			_colorLerp += Time.deltaTime;
 			_colorLerp = Mathf.Clamp01 (_colorLerp);
-			_renderer.material.SetColor("_TintColor", 
+			_renderer.material.SetColor("_Color", 
 			                            Color.Lerp (_initialColor, new Color (0, 0, 0, 0), _colorLerp));
 
 		} else if(_colorLerp > 0) {
 			_colorLerp -= Time.deltaTime;
 			_colorLerp = Mathf.Clamp01 (_colorLerp);
-			_renderer.material.SetColor("_TintColor", 
+			_renderer.material.SetColor("_Color", 
 			                            Color.Lerp (_initialColor, new Color (0, 0, 0, 0), _colorLerp));
 			if(_colorLerp < 0.5f)
 				playerDetector.detectionDistance = 1;
