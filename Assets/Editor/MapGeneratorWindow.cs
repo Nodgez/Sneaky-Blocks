@@ -28,11 +28,11 @@ public class MapGeneratorWindow : EditorWindow {
 
 		if (GUILayout.Button ("generate")) {
 			Generate ();
-			Combine ();
+			//Combine ();
 		}
 
-		if (GUILayout.Button ("Combine Children")) {
-			Combine ();
+		if (GUILayout.Button ("make texture")) {
+
 		}
 
 		GUILayout.EndHorizontal ();
@@ -45,15 +45,12 @@ public class MapGeneratorWindow : EditorWindow {
 			return;
 		}
 
-		for (int x = 0; x < width; x++) {
-			for (int y = 0; y < height; y++) {
-				GameObject pad = GameObject.CreatePrimitive (PrimitiveType.Quad);
-				pad.transform.rotation = Quaternion.Euler (90, 0, 0);
-				pad.transform.position = new Vector3 (x, 0, y);
-				pad.transform.SetParent (map.transform);
-				pad.isStatic = true;
-			}
-		}
+		GameObject pad = GameObject.CreatePrimitive (PrimitiveType.Quad);
+		pad.transform.rotation = Quaternion.Euler (90, 0, 0);
+		pad.transform.localScale = new Vector3 (width, height,1);
+		pad.isStatic = true;
+		pad.transform.SetParent (map.transform);
+		pad.GetComponent<Renderer>().sharedMaterial = AssetDatabase.LoadAssetAtPath<Material> ("Assets/Materials/Floor.mat");
 	}
 
 	void Combine() {

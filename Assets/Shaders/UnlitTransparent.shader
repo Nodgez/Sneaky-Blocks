@@ -5,7 +5,7 @@
 	SubShader {
 	pass
 	{
-		Tags { "Queue"="Transparent" "IgnoreProjector"="True" }
+		Tags { "Queue"="Transparent" }
 		Blend SrcAlpha OneMinusSrcAlpha
 		CGPROGRAM
 
