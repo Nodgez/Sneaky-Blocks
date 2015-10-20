@@ -26,7 +26,7 @@ public class SpringReference : MonoBehaviour {
 		Vector3 velocity = force * direction.normalized;
 		transform.position += velocity * Time.deltaTime * 0.5f;
 
-		Debug.Log ("Distance Difference : " + (previousDistance - distance).ToString());
+//		Debug.Log ("Distance Difference : " + (previousDistance - distance).ToString());
 
 //		//moving away
 //		if (previousDistance <= distance) {

@@ -33,7 +33,9 @@ public class FindPathBehavior : AbstractBehavior {
 	{
 		get
 		{
-			Vector3 direction = agent.destination - transform.position;
+			Vector3 direction = agent.destination - new Vector3(transform.position.x,
+			                                                    agent.destination.y,
+			                                                    transform.position.z);
 			return direction.normalized;
 		}
 
