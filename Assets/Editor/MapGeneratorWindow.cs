@@ -46,10 +46,12 @@ public class MapGeneratorWindow : EditorWindow {
 		}
 
 		GameObject pad = GameObject.CreatePrimitive (PrimitiveType.Quad);
+        pad.transform.position = new Vector3(((float)width -1) * 0.5f, 0, ((float)height -1) * 0.5f);
 		pad.transform.rotation = Quaternion.Euler (90, 0, 0);
 		pad.transform.localScale = new Vector3 (width, height,1);
 		pad.isStatic = true;
 		pad.transform.SetParent (map.transform);
+        pad.transform.SetAsFirstSibling();
 		pad.GetComponent<Renderer>().sharedMaterial = AssetDatabase.LoadAssetAtPath<Material> ("Assets/Materials/Floor.mat");
 	}
 

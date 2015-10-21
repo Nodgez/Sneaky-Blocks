@@ -24,7 +24,6 @@ public class InputState : MonoBehaviour {
 		else if (buttonState.value && value)
 			buttonState.holdTime += Time.deltaTime;
 		buttonState.value = value;
-
 	}
 
 	public void GetButtonValue(Buttons key, out bool value)
