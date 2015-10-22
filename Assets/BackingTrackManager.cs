@@ -18,22 +18,24 @@ public class BackingTrackManager : MonoBehaviour {
 			_instance = this;
 			audioSource = GetComponent<AudioSource>();
 			audioSource.clip = backingTracks[0];
-			audioSource.Play();
+            audioSource.Play();
 		}
 		else if (this != _instance)
 			Destroy (this);
 
 		DontDestroyOnLoad (this);
 
-		EventPool eventPool = GameObject.FindObjectOfType<EventPool> ();
-		GameEvent playerFoundEvent;
-		eventPool.GetEventFromPool ("Player Found", out playerFoundEvent);
-	}
+        if (PlayerPrefs.GetInt("MusicOn") == 0)
+            audioSource.volume = 0;
+
+    }
 	
 	// Update is called once per frame
 	void Update () {
-	
-	}
+        if (PlayerPrefs.GetInt("MusicOn") == 0)
+            audioSource.volume = 0;
+        else audioSource.volume = 1;
+    }
 
 	public void ChangeTrack(int index)
 	{
