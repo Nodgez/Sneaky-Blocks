@@ -4,11 +4,12 @@ using System.Collections;
 public class DestinationCamera : MonoBehaviour {
 
 	public FindPathBehavior findPathBehavior;
-	public float lerpFactor;
+	public float speed;
 
 	private Vector3 _destination;
 	private float _lerpValue = 1;
 	private Vector3 _start;
+    private Vector3 _direction;
 
 	void Start () {
 	
@@ -18,17 +19,18 @@ public class DestinationCamera : MonoBehaviour {
 	
 		Vector3 frameDestination = findPathBehavior.Destination + (Vector3.up * 10);
 
+        //If the destination has bee changed reset
 		if (frameDestination != _destination) {
 			_lerpValue = 0;
 			_start = transform.position;
 			_destination = frameDestination;
+            _direction = _destination - _start;
+            _direction = new Vector3(_direction.x, 0, _direction.z);
 		}
 
-		if (_lerpValue >= 1)
-			return;
+        if (Vector3.Distance(_destination, transform.position) < .5f)
+            return;
 
-		_lerpValue += Time.deltaTime * lerpFactor;
-		_lerpValue = Mathf.Clamp01 (_lerpValue);
-		transform.position = Vector3.Lerp (_start, _destination, _lerpValue);
+        transform.position += _direction * speed * Time.deltaTime;
 	}
 }

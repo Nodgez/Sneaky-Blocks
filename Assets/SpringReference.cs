@@ -9,6 +9,7 @@ public class SpringReference : MonoBehaviour {
 	Vector3 targetPos;
 	float previousDistance = 0;
 	private float originalStiffness;
+    private Vector3 _storedPosition;
 
 	// Use this for initialization
 	void Start () {
@@ -21,22 +22,17 @@ public class SpringReference : MonoBehaviour {
 		                                 10,
 		                                 targetTransform.position.z);
 		float distance = Vector3.Distance (transform.position, targetPos);
-		float force = stiffness * distance;
-		Vector3 direction = targetPos - transform.position;
+		float force = 0;
+
+        if (_storedPosition == targetTransform.position)
+            force = stiffness * distance * 3;
+        else
+            force = stiffness * distance;
+        Vector3 direction = targetPos - transform.position;
 		Vector3 velocity = force * direction.normalized;
 		transform.position += velocity * Time.deltaTime * 0.5f;
 
-//		Debug.Log ("Distance Difference : " + (previousDistance - distance).ToString());
-
-//		//moving away
-//		if (previousDistance <= distance) {
-//			stiffness = originalStiffness;
-//		}
-//		//moving too
-//		else if(previousDistance > distance) {
-//			stiffness = 10f;
-//		}
-
+        _storedPosition = targetTransform.position;
 		previousDistance = distance;
 		Debug.DrawLine (transform.position, targetPos, Color.cyan);
 	}

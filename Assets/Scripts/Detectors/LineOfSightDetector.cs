@@ -15,6 +15,7 @@ public class LineOfSightDetector : BaseDetector {
 
 		//convert the angle to radians
 		angle = Mathf.Cos (angle * Mathf.Deg2Rad);
+        RunTests();
 	}
 
 	public override bool DetectTargets ()

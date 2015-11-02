@@ -23,9 +23,11 @@ public class InterpolationCamera : MonoBehaviour {
 			_lerpValue = 0;
 		}
 
-		if (Vector2.Distance (new Vector2(transform.position.x, transform.position.z)
-		                      ,new Vector2(_destination.x, _destination.z)) < 0.25f)
-			return;
+        if (Vector2.Distance(new Vector2(transform.position.x, transform.position.z)
+                              , new Vector2(_destination.x, _destination.z)) < 0.25f)
+        {
+            return;
+        }
 
 		_lerpValue += Time.deltaTime;
 		_lerpValue = Mathf.Clamp01 (_lerpValue);
@@ -37,7 +39,4 @@ public class InterpolationCamera : MonoBehaviour {
 
 		transform.position = findPathBehavior.transform.position + _cameraOffset;
 	}
-
-	void StartInterpolation()
-	{}
 }

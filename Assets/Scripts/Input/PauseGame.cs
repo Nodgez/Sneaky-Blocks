@@ -16,13 +16,10 @@ public class PauseGame : AbstractBehavior {
         bool buttonValue = false;
         inputState.GetButtonValue(Buttons.Back, out buttonValue);
 
-        Debug.Log("Current : " + buttonValue);
-
         if (previousButtonValue == buttonValue)
             return;
 
         previousButtonValue = buttonValue;
-        Debug.Log("Previous : " + previousButtonValue);
 
         if (buttonValue && !pauseMenu.activeSelf)
         {

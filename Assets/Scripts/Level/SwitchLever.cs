@@ -20,5 +20,7 @@ public class SwitchLever : MonoBehaviour {
 			_switchTrigger.IsTriggered = true;
 			this.gameObject.SetActive(false);
 		}
+
+        transform.Rotate(Vector3.up, Time.deltaTime * 100);
 	}
 }

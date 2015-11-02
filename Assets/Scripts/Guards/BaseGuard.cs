@@ -8,8 +8,6 @@ using System.Collections;
 public abstract class BaseGuard : MonoBehaviour {
 
 	public float detectionRadius = 5f;
-	public int viewAngle;
-	public LayerMask detectionLayers;
 
 	protected LineOfSightDetector losDetector_;
 	protected Trigger trigger_;
@@ -19,6 +17,7 @@ public abstract class BaseGuard : MonoBehaviour {
 	{
 		losDetector_ = GetComponent<LineOfSightDetector> ();
 		trigger_ = GetComponent<Trigger> ();
+
 	}
 
 	public abstract void Seek ();

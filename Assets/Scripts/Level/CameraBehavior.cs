@@ -1,26 +1,18 @@
 
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class CameraBehavior : MonoBehaviour {
 
-	public FindPathBehavior findPathBehavior;
-	public SpringReference springReference;
-	public float offsetFactor = 3;
+    public Transform targetTrasform;
 	public float minZoom = 3;
+    public float midZoom = 5;
 	public float maxZoom = 7;
-
-	const float STIFFNESS = 1000;
 
 	private bool _zooming = false;
 	private float _zoomLerp = 0;
 	private float _storedSize = 0;
-	private float _lerpAmount = 0;
-	private Vector3 _storedDestination;
-	private Vector3 _destinationVector;
-	private Vector3 _startVector;
-	private Vector3 _direction;
-	private Vector3 _velocity;
 
 	void Start () {
 		//Find the event pool and add the event to it
@@ -28,26 +20,34 @@ public class CameraBehavior : MonoBehaviour {
 		GameEvent playerFoundEvent;
 		eventPool.GetEventFromPool ("Player Found", out playerFoundEvent);
 		playerFoundEvent.onHandleEvent += EventZoom;
-	}
-	
-	void Update () {
 
-//		Vector3 targetPos = new Vector3 (findPathBehavior.transform.position.x,
-//		                                10,
-//		                                findPathBehavior.transform.position.z);
-//		float distance = Vector3.Distance (transform.position, targetPos);
-//		float force = STIFFNESS * distance;
-//		Vector3 direction = targetPos - transform.position;
-//		Vector3 velocity = force * direction.normalized;
-//		transform.position += velocity * Time.deltaTime * 0.5f;
-//		Debug.DrawLine (transform.position, targetPos, Color.cyan);
+        Vector3 mapScale = Vector3.zero;
+        GameObject[] mapParts = GameObject.FindGameObjectsWithTag("Quad");
+        if (mapParts.Length > 1)
+        {
+            foreach (GameObject go in mapParts)
+            {
+                if (go.transform.localScale.x > mapScale.x)
+                    mapScale.x = go.transform.localScale.x;
+                if (go.transform.localScale.y > mapScale.y)
+                    mapScale.y = go.transform.localScale.y;
+            }
+        }
+        else
+            mapScale = mapParts[0].transform.localScale;
+        float area = mapScale.x * mapScale.y;
+        float size = minZoom;
+        if (area > 100)
+            size = midZoom;
+        else if (area > 200)
+            size = maxZoom;
 
-		Vector3 direction = springReference.Direction.normalized * -1;
-		float dis = springReference.Distance;
-		Vector3 anchorPos = new Vector3 (findPathBehavior.transform.position.x,
-		                                10,
-		                                findPathBehavior.transform.position.z);
-		transform.position = anchorPos + direction * dis;
+        Camera.main.orthographicSize = size;
+    }
+
+    void Update () {
+
+        transform.position = new Vector3(targetTrasform.position.x, 10, targetTrasform.position.z);
 
 		if (!_zooming)
 			return;

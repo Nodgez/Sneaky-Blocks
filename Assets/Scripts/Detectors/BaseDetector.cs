@@ -10,5 +10,10 @@ public abstract class BaseDetector : MonoBehaviour
 
 	public abstract bool DetectTargets();
 	public abstract bool DetectTargets(out Transform targetTransform);
+
+    public virtual void RunTests()
+    {
+        Debug.Assert(targetTransforms.Length > 0, "No Targets found on " + this.ToString());
+    }
 }
 
