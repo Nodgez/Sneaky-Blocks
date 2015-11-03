@@ -15,10 +15,17 @@ public class MainMenu : MonoBehaviour {
             PlayerPrefs.SetInt("MusicOn", 1);
     }
 
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+            Application.Quit();
+    }
+
     public void ChangeActiveMenu(int index)
 	{
 		levelsMenu.SetActive (false);
 		optionsMenu.SetActive (false);
+        creditsMenu.SetActive(false);
 
 		switch (index)
         {

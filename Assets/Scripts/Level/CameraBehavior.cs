@@ -27,10 +27,12 @@ public class CameraBehavior : MonoBehaviour {
         {
             foreach (GameObject go in mapParts)
             {
-                if (go.transform.localScale.x > mapScale.x)
-                    mapScale.x = go.transform.localScale.x;
-                if (go.transform.localScale.y > mapScale.y)
-                    mapScale.y = go.transform.localScale.y;
+                float totalWidth = go.transform.position.x + go.transform.localScale.x;
+                float totalHeight = go.transform.position.y + go.transform.localScale.y;
+                if (totalWidth > mapScale.x)
+                    mapScale.x = totalWidth;
+                if (totalHeight > mapScale.y)
+                    mapScale.y = totalHeight;
             }
         }
         else
