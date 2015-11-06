@@ -17,8 +17,14 @@ public class FindPathBehavior : AbstractBehavior {
 		if (tapped) {
 			Ray ray = Camera.main.ScreenPointToRay(inputState.gesturePosition);
 			RaycastHit hit;
-			if(Physics.Raycast(ray, out hit))
-				agent.SetDestination(hit.point);
+            if (Physics.Raycast(ray, out hit) && hit.collider.gameObject.layer != LayerMask.NameToLayer("ShadowLayer"))
+                agent.SetDestination(hit.point);
+            else if(hit.collider != null)
+            {
+                Vector3 dir = hit.point - agent.transform.position;
+                Vector3 newDestination = hit.point - dir.normalized;
+                agent.SetDestination(newDestination);
+            }
 		}
 	}
 

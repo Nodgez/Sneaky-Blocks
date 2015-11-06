@@ -18,7 +18,7 @@ public class Map : MonoBehaviour {
             {
                 for (int y = 0; y < texture.height; y++)
                 {
-                    float random = Random.Range(0.8f, 0.9f);
+                    float random = Random.Range(0.875f, 0.9f);
                     Color color = new Color(random, random, random);
                     texture.SetPixel(x, y, color);
                 }

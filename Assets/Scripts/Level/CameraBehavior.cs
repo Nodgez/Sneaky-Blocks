@@ -39,9 +39,9 @@ public class CameraBehavior : MonoBehaviour {
             mapScale = mapParts[0].transform.localScale;
         float area = mapScale.x * mapScale.y;
         float size = minZoom;
-        if (area > 100)
+        if (area > 150)
             size = midZoom;
-        else if (area > 200)
+        else if (area > 250)
             size = maxZoom;
 
         Camera.main.orthographicSize = size;
