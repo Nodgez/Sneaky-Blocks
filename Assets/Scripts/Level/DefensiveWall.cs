@@ -32,24 +32,28 @@ public class DefensiveWall : MonoBehaviour {
 	}
 	
 	void Update () {
-		//if there is a guard near by, update towards off values
-		//else if not, update towards on values
-		if (guardDetector.DetectTargets ()) {
-			playerDetector.detectionDistance = 0;
-			_colorLerp += Time.deltaTime;
-			_colorLerp = Mathf.Clamp01 (_colorLerp);
-			_renderer.material.SetColor("_Color", 
-			                            Color.Lerp (_initialColor, new Color (0, 0, 0, 0), _colorLerp));
+        //if there is a guard near by, update towards off values
+        //else if not, update towards on values
+        if (guardDetector.DetectTargets())
+        {
+            playerDetector.detectionDistance = 0;
+            _colorLerp += Time.deltaTime;
+            _colorLerp = Mathf.Clamp01(_colorLerp);
+            _renderer.material.SetColor("_Color",
+                                        Color.Lerp(_initialColor, new Color(0, 0, 0, 0), _colorLerp));
 
-		} else if(_colorLerp > 0) {
-			_colorLerp -= Time.deltaTime;
-			_colorLerp = Mathf.Clamp01 (_colorLerp);
-			_renderer.material.SetColor("_Color", 
-			                            Color.Lerp (_initialColor, new Color (0, 0, 0, 0), _colorLerp));
-			if(_colorLerp < 0.5f)
-				playerDetector.detectionDistance = 1;
-		}
-
-		_trigger.IsTriggered = playerDetector.DetectTargets ();
+        }
+        else if (_colorLerp > 0)
+        {
+            _colorLerp -= Time.deltaTime;
+            _colorLerp = Mathf.Clamp01(_colorLerp);
+            _renderer.material.SetColor("_Color",
+                                        Color.Lerp(_initialColor, new Color(0, 0, 0, 0), _colorLerp));
+            if (_colorLerp < 0.5f)
+                playerDetector.detectionDistance = 1;
+        }
+        float color = Mathf.Abs(Mathf.Sin(Time.time) * 0.25f);
+        _renderer.material.SetColor("_EmissionColor", _initialColor * new Color(color, color, color));
+        _trigger.IsTriggered = playerDetector.DetectTargets ();
 	}
 }

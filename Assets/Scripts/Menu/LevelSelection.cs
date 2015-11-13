@@ -13,7 +13,7 @@ public class LevelSelection : MonoBehaviour {
 		float cellHeight = rectTransform.rect.height / 3f;
 		grid.cellSize = new Vector2 (cellHeight * 2, cellHeight); 
 
-		rectTransform.offsetMax = new Vector2 ((grid.cellSize.x * levelCount) / 3, rectTransform.offsetMax.y);
+		rectTransform.offsetMax = new Vector2 ((grid.cellSize.x * levelCount) / 3 + grid.cellSize.x, rectTransform.offsetMax.y);
 		for (int i = 0; i < levelCount; i++) {
 			Button buttonInstance = Instantiate(buttonPrefab) as Button;
 			buttonInstance.transform.SetParent(this.transform);

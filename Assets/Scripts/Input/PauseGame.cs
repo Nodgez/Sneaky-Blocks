@@ -34,10 +34,12 @@ public class PauseGame : AbstractBehavior {
         }	
 	}
 
-    public void UnPauseGame()
+
+
+    public void TogglePauseGame()
     {
-        Time.timeScale = 1;
-        pauseMenu.SetActive(false);
+        Time.timeScale = Mathf.Abs(Time.timeScale - 1);
+        pauseMenu.SetActive(!pauseMenu.activeSelf);
     }
 
     public void GoToMainMenu()
