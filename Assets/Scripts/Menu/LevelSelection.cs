@@ -21,7 +21,7 @@ public class LevelSelection : MonoBehaviour {
 			Text[] texts = buttonInstance.GetComponentsInChildren<Text>();
 			texts[0].text = "Level " + (i + 1).ToString();
 			texts[1].text = "Time";
-            texts[2].text = "0.00";
+            texts[2].text = PlayerPrefs.GetFloat("Level" + i.ToString() + "Time", 0.00f).ToString("0.00");
 			int levelIndex = i + 1;
 			buttonInstance.onClick.AddListener(delegate {
 				Application.LoadLevel(levelIndex);

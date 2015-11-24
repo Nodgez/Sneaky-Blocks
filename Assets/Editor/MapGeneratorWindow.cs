@@ -31,8 +31,8 @@ public class MapGeneratorWindow : EditorWindow {
 			//Combine ();
 		}
 
-		if (GUILayout.Button ("make texture")) {
-
+		if (GUILayout.Button ("Combine")) {
+            Combine();
 		}
 
 		GUILayout.EndHorizontal ();
@@ -59,6 +59,8 @@ public class MapGeneratorWindow : EditorWindow {
 		MeshFilter[] meshFilters = map.GetComponentsInChildren<MeshFilter>();
 		CombineInstance[] combine = new CombineInstance[meshFilters.Length];
 		for(int i = meshFilters.Length - 1; i > -1; i--) {
+            if (meshFilters[i].tag != "Quad")
+                continue;
 			combine[i].mesh = meshFilters[i].sharedMesh;
 			combine[i].transform = meshFilters[i].transform.localToWorldMatrix;
 			if(i != 0)

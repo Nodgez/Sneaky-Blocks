@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class CumulativeEnabling : MonoBehaviour {
+public class CumulativeToggling : MonoBehaviour {
 
-	public GameObject[] objectsToEnable;
+	public GameObject[] objectsToToggle;
 	public string eventKey;
 	public float increment;
 	private float currentValue;
@@ -19,8 +19,8 @@ public class CumulativeEnabling : MonoBehaviour {
 	{
 		currentValue += increment;
 		if (currentValue >= 1)
-			for (int i = 0; i < objectsToEnable.Length; i++)
-				objectsToEnable [i].SetActive (true);
+			for (int i = 0; i < objectsToToggle.Length; i++)
+				objectsToToggle [i].SetActive (!objectsToToggle[i].activeSelf);
 	}
 	
 

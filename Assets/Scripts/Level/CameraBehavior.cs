@@ -1,5 +1,8 @@
-
 using UnityEngine;
+using ProBuilder2.Common;
+using ProBuilder2.MeshOperations;
+using ProBuilder2.Math;
+using ProBuilder2.Triangulator;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -22,22 +25,9 @@ public class CameraBehavior : MonoBehaviour {
 		playerFoundEvent.onHandleEvent += EventZoom;
 
         Vector3 mapScale = Vector3.zero;
-        GameObject[] mapParts = GameObject.FindGameObjectsWithTag("Quad");
-        if (mapParts.Length > 1)
-        {
-            foreach (GameObject go in mapParts)
-            {
-                float totalWidth = go.transform.position.x + go.transform.localScale.x;
-                float totalHeight = go.transform.position.y + go.transform.localScale.y;
-                if (totalWidth > mapScale.x)
-                    mapScale.x = totalWidth;
-                if (totalHeight > mapScale.y)
-                    mapScale.y = totalHeight;
-            }
-        }
-        else
-            mapScale = mapParts[0].transform.localScale;
-        float area = mapScale.x * mapScale.y;
+        pb_Object mapPlane = GameObject.FindGameObjectWithTag("Quad").GetComponent<pb_Object>();
+
+        float area = (mapPlane.faceCount * 0.5f) * (mapPlane.faceCount * 0.5f);
         float size = minZoom;
         if (area > 150)
             size = midZoom;
