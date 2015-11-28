@@ -5,6 +5,8 @@ using System.Collections;
 public class FindPathBehavior : AbstractBehavior {
 
 	NavMeshAgent agent;
+    bool taplifted = true;
+    public GameObject pointer;
 	// Use this for initialization
 	void Start () {
 		agent = GetComponent<NavMeshAgent> ();
@@ -18,17 +20,29 @@ public class FindPathBehavior : AbstractBehavior {
 			Ray ray = Camera.main.ScreenPointToRay(inputState.gesturePosition);
 			RaycastHit hit;
             if (Physics.Raycast(ray, out hit) && hit.collider.gameObject.layer != LayerMask.NameToLayer("ShadowLayer"))
+            {
                 agent.SetDestination(hit.point);
-            else if(hit.collider != null)
+
+                if (taplifted)
+                    Instantiate(pointer, hit.point, Quaternion.Euler(90, 0, 0));
+            }
+            else if (hit.collider != null)
             {
                 Vector3 dir = hit.point - agent.transform.position;
                 Vector3 newDestination = hit.point - dir.normalized;
                 agent.SetDestination(newDestination);
+
+                if (taplifted)
+                {
+                    Instantiate(pointer, newDestination, Quaternion.identity);
+                }
             }
 		}
-	}
 
-	public Vector3 Destination {
+        taplifted = !tapped;
+    }
+
+    public Vector3 Destination {
 		get
 		{
 			return agent.destination;

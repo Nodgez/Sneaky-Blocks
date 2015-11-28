@@ -13,7 +13,7 @@ public class AdvertismentManager : MonoBehaviour {
         {
             Instance = this;
             if(Advertisement.isSupported)
-                Advertisement.Initialize("85995", true);
+                Advertisement.Initialize("85995");
 
             if (!PlayerPrefs.HasKey(AD_COUNT_KEY))
                 PlayerPrefs.SetInt(AD_COUNT_KEY, 0);           
@@ -34,7 +34,7 @@ public class AdvertismentManager : MonoBehaviour {
             Advertisement.Show(null, new ShowOptions { resultCallback = delegate {
                 Time.timeScale = 1;
             } });
-            PlayerPrefs.SetInt(AD_COUNT_KEY, 5);
+            PlayerPrefs.SetInt(AD_COUNT_KEY, 20);
             PlayerPrefs.Save();
         }
 

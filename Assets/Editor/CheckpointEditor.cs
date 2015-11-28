@@ -39,8 +39,15 @@ public class CheckpointEditor : PlacementEditor {
 				break;
 			case CheckpointType.Teleport:
 				checkpointScript = go.AddComponent<TeleporterCheckpoint>();
-				GameObject particles = AssetDatabase.LoadAssetAtPath<GameObject>(@"Assets\Prefabs\Particles\Teleporter Particles Enter");
-				particles.transform.SetParent(go.transform);
+				Object particles = AssetDatabase.LoadAssetAtPath<Object>(@"Assets\Prefabs\Particles\Tele.prefab");
+                if (particles == null)
+                {
+                    Debug.Log("No Visuals");
+                    return;
+                }
+                GameObject visual = PrefabUtility.InstantiatePrefab(particles) as GameObject;
+				visual.transform.SetParent(go.transform);
+                visual.transform.localPosition = Vector3.zero;
 				break;
 			case CheckpointType.Survey:
 				checkpointScript = go.AddComponent<SurveyCheckpoint>();

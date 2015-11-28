@@ -13,6 +13,9 @@ public class CameraBehavior : MonoBehaviour {
     public float midZoom = 5;
 	public float maxZoom = 7;
 
+    public float width;
+    public float height;
+
 	private bool _zooming = false;
 	private float _zoomLerp = 0;
 	private float _storedSize = 0;
@@ -25,13 +28,11 @@ public class CameraBehavior : MonoBehaviour {
 		playerFoundEvent.onHandleEvent += EventZoom;
 
         Vector3 mapScale = Vector3.zero;
-        pb_Object mapPlane = GameObject.FindGameObjectWithTag("Quad").GetComponent<pb_Object>();
-
-        float area = (mapPlane.faceCount * 0.5f) * (mapPlane.faceCount * 0.5f);
+        float area = width * height;
         float size = minZoom;
-        if (area > 150)
+        if (area > 100)
             size = midZoom;
-        else if (area > 250)
+        else if (area > 200)
             size = maxZoom;
 
         Camera.main.orthographicSize = size;

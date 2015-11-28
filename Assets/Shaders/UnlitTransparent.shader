@@ -7,14 +7,11 @@
 	{
 		Tags { "Queue"="Transparent" }
 		Blend SrcAlpha OneMinusSrcAlpha
+		ZWrite off
 		CGPROGRAM
 
 		#pragma vertex vert
 		#pragma fragment frag
-		
-
-		// Use shader model 3.0 target, to get nicer looking lighting
-		#pragma target 3.0
 
 		struct Input {
 			float2 uv_MainTex;

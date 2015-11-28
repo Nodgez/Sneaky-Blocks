@@ -46,4 +46,9 @@ public class PauseGame : AbstractBehavior {
     {
         Application.LoadLevel(0);
     }
+
+    public void RestartLevel()
+    {
+        Application.LoadLevel(Application.loadedLevel);
+    }
 }
