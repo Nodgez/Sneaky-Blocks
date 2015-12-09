@@ -7,7 +7,6 @@ using System.Collections;
 [RequireComponent(typeof(ProximityDetector))]
 public class Exit : MonoBehaviour {
 	private ProximityDetector _detector;
-	public int levelToLoad;
 
 	void Start()
 	{
@@ -16,8 +15,11 @@ public class Exit : MonoBehaviour {
 
 	void Update()
 	{
-		if (_detector.DetectTargets ())
-			Application.LoadLevel (levelToLoad);
+        if (_detector.DetectTargets())
+        {
+            int levelToLoad = Application.loadedLevel + 1 < Application.levelCount ? Application.loadedLevel + 1 : 0;
+            Application.LoadLevel(levelToLoad);
+        }
 
 	}
 }

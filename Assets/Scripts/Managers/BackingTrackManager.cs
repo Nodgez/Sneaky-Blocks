@@ -8,7 +8,7 @@ public class BackingTrackManager : MonoBehaviour {
 	public AudioClip[] backingTracks;
 
 	private AudioSource audioSource;
-
+    private AudioLibrary effectsLibrary;
 	private static BackingTrackManager _instance;
 
 	// Use this for initialization
@@ -19,6 +19,7 @@ public class BackingTrackManager : MonoBehaviour {
 			audioSource = GetComponent<AudioSource>();
 			audioSource.clip = backingTracks[0];
             audioSource.Play();
+            effectsLibrary = GetComponent<AudioLibrary>();
 		}
 		else if (this != _instance)
 			Destroy (this);
@@ -41,4 +42,14 @@ public class BackingTrackManager : MonoBehaviour {
 	{
 		audioSource.clip = backingTracks [index];
 	}
+
+    public static BackingTrackManager Instance
+    {
+        get { return _instance; }
+    }
+
+    public AudioLibrary EffectsLibrary
+    {
+        get { return effectsLibrary; }
+    }
 }

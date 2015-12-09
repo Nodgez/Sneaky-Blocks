@@ -23,6 +23,9 @@ public class TimeManagement : MonoBehaviour {
 
     void OnDestroy()
     {
+        float bestTime = PlayerPrefs.GetFloat(_timeInLevel, 0);
+        if (bestTime < Time.timeSinceLevelLoad && bestTime != 0)
+            return;
         PlayerPrefs.SetFloat(_timeInLevel, Time.timeSinceLevelLoad);
         PlayerPrefs.Save();
     }

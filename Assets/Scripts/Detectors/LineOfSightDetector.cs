@@ -38,6 +38,7 @@ public class LineOfSightDetector : BaseDetector {
 				if(distanceFromUnit < detectionDistance && dotProduct > angle)
 				{
 					Debug.Log("Target detected");
+                    BackingTrackManager.Instance.EffectsLibrary.PlayClip(AudioEffects.Detected);
 					return true;
 				}
 			}

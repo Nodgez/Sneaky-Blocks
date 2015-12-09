@@ -8,6 +8,7 @@ public class GameEvent {
 
 	public event OnHandleEvent onHandleEvent;
 	private List<Trigger> eventTriggers = new List<Trigger>();
+    private GameObject eventShooter;
 
 	public void CheckEventTriggered () {
 		foreach (Trigger eventTrigger in eventTriggers) {
@@ -15,6 +16,8 @@ public class GameEvent {
 
 				if(onHandleEvent != null)
 					onHandleEvent();
+
+                eventShooter = eventTrigger.gameObject;
 
 				break;
 			}
@@ -25,4 +28,9 @@ public class GameEvent {
 	{
 		eventTriggers.Add (trigger);
 	}
+
+    public GameObject EventShooter
+    {
+        get { return eventShooter; }
+    }
 }
