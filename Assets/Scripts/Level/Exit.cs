@@ -18,6 +18,7 @@ public class Exit : MonoBehaviour {
         if (_detector.DetectTargets())
         {
             int levelToLoad = Application.loadedLevel + 1 < Application.levelCount ? Application.loadedLevel + 1 : 0;
+            BackingTrackManager.Instance.EffectsLibrary.PlayClip(AudioEffects.Win);
             Application.LoadLevel(levelToLoad);
         }
 

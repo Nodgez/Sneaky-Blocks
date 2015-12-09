@@ -18,6 +18,7 @@ public class SwitchLever : MonoBehaviour {
 		if(_proxDetector.DetectTargets ())
 		{
 			_switchTrigger.IsTriggered = true;
+            BackingTrackManager.Instance.EffectsLibrary.PlayClip(AudioEffects.Switch);
 			this.gameObject.SetActive(false);
 		}
 

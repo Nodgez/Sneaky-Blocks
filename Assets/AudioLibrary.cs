@@ -7,7 +7,7 @@ public class AudioLibrary : MonoBehaviour {
 
     public void PlayClip(AudioEffects effect)
     {
-        if (GameObject.Find(effect.ToString()) != null)
+        if (GameObject.Find(effect.ToString()) != null || PlayerPrefs.GetInt("AudioOn") == 0)
             return;
         GameObject clip = new GameObject(effect.ToString());
         AudioSource audioS = clip.AddComponent<AudioSource>();

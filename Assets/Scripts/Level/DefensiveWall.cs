@@ -54,6 +54,9 @@ public class DefensiveWall : MonoBehaviour {
         }
         float color = Mathf.Abs(Mathf.Sin(Time.time) * 0.25f);
         _renderer.material.SetColor("_EmissionColor", _initialColor * new Color(color, color, color));
-        _trigger.IsTriggered = playerDetector.DetectTargets ();
-	}
+        bool detected = playerDetector.DetectTargets();
+        _trigger.IsTriggered = detected;
+        if (detected)
+            BackingTrackManager.Instance.EffectsLibrary.PlayClip(AudioEffects.Detected);
+    }
 }

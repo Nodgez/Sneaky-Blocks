@@ -35,7 +35,7 @@ public class BackingTrackManager : MonoBehaviour {
 	void Update () {
         if (PlayerPrefs.GetInt("MusicOn") == 0)
             audioSource.volume = 0;
-        else audioSource.volume = 1;
+        else audioSource.volume = 0.35f;
     }
 
 	public void ChangeTrack(int index)

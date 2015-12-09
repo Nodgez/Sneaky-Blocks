@@ -7,6 +7,8 @@ public class MainMenu : MonoBehaviour {
 	public GameObject optionsMenu;
     public GameObject creditsMenu;
 
+    private int openMenu = 0;
+
     void Start()
     {
         if (!PlayerPrefs.HasKey("AudioOn"))
@@ -27,7 +29,14 @@ public class MainMenu : MonoBehaviour {
 		optionsMenu.SetActive (false);
         creditsMenu.SetActive(false);
 
-		switch (index)
+        if (openMenu > index)
+            BackingTrackManager.Instance.EffectsLibrary.PlayClip(AudioEffects.Decline);
+        else
+            BackingTrackManager.Instance.EffectsLibrary.PlayClip(AudioEffects.Accept);
+
+        openMenu = index;
+
+        switch (index)
         {
 		    case 1:
 			    levelsMenu.SetActive(true);
