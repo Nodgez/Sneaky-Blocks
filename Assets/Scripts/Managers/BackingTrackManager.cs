@@ -10,6 +10,7 @@ public class BackingTrackManager : MonoBehaviour {
 	private AudioSource audioSource;
     private AudioLibrary effectsLibrary;
 	private static BackingTrackManager _instance;
+    private float initVol = 0;
 
 	// Use this for initialization
 	void Start () {
@@ -25,7 +26,7 @@ public class BackingTrackManager : MonoBehaviour {
 			Destroy (this);
 
 		DontDestroyOnLoad (this);
-
+        initVol = audioSource.volume;
         if (PlayerPrefs.GetInt("MusicOn") == 0)
             audioSource.volume = 0;
 
@@ -35,7 +36,7 @@ public class BackingTrackManager : MonoBehaviour {
 	void Update () {
         if (PlayerPrefs.GetInt("MusicOn") == 0)
             audioSource.volume = 0;
-        else audioSource.volume = 0.35f;
+        else audioSource.volume = initVol;
     }
 
 	public void ChangeTrack(int index)
