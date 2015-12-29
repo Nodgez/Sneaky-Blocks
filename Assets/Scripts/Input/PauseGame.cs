@@ -53,7 +53,7 @@ public class PauseGame : AbstractBehavior {
 
     public void GoToMainMenu()
     {
-        Application.LoadLevel(0);
+        Application.LoadLevel(Application.levelCount - 1);
     }
 
     public void RestartLevel()
