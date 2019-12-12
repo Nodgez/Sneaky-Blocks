@@ -15,30 +15,32 @@ public class FindPathBehavior : AbstractBehavior {
 	
 	// Update is called once per frame
 	void Update () {
-		bool tapped = false;
-		inputState.GetButtonValue (Buttons.Tap, out tapped);
-		if (tapped) {
+		inputState.GetButtonValue (Buttons.Tap, out var tapped);
+		if (tapped)
+		{
 			Ray ray = Camera.main.ScreenPointToRay(inputState.gesturePosition);
 			RaycastHit hit;
-            if (Physics.Raycast(ray, out hit) && hit.collider.gameObject.layer != LayerMask.NameToLayer("ShadowLayer"))
-            {
-                agent.SetDestination(hit.point);
+			if (Physics.Raycast(ray, out hit) && hit.collider.gameObject.layer != LayerMask.NameToLayer("ShadowLayer"))
+			{
+				agent.SetDestination(hit.point);
 
-                if (taplifted)
-                    Instantiate(pointer, hit.point, Quaternion.Euler(90, 0, 0));
-            }
-            else if (hit.collider != null)
-            {
-                Vector3 dir = hit.point - agent.transform.position;
-                Vector3 newDestination = hit.point - dir.normalized;
-                agent.SetDestination(newDestination);
+				if (taplifted)
+					Instantiate(pointer, hit.point, Quaternion.Euler(90, 0, 0));
+			}
+			else if (hit.collider != null)
+			{
+				Vector3 dir = hit.point - agent.transform.position;
+				Vector3 newDestination = hit.point - dir.normalized;
+				agent.SetDestination(newDestination);
 
-                if (taplifted)
-                {
-                    Instantiate(pointer, newDestination, Quaternion.identity);
-                }
-            }
+				if (taplifted)
+				{
+					Instantiate(pointer, newDestination, Quaternion.identity);
+				}
+			}
 		}
+		//else if (!agent.isStopped)
+		//	agent.isStopped = true;
 
         taplifted = !tapped;
     }

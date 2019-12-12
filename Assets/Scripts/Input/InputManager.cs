@@ -50,5 +50,6 @@ public enum Buttons
 	SpaceBar = 0,
 	Back = 1,
 	Forward = 2,
-	Tap = 3
+	Tap = 3,
+	Release = 4
 }
