@@ -1,4 +1,6 @@
-﻿Shader "Custom/UnlitTransparent" {
+﻿// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
+
+Shader "Custom/UnlitTransparent" {
 	Properties {
 		_Color ("Color", Color) = (1,1,1,1)
 	}
@@ -32,7 +34,7 @@
 		v2f vert(appdata input)
 		{
 			v2f output;
-			output.pos = mul(UNITY_MATRIX_MVP, input.vertex);
+			output.pos = UnityObjectToClipPos(input.vertex);
 			return output;
 		}
 		

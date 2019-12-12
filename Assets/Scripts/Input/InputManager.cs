@@ -13,7 +13,7 @@ public class InputManager : MonoBehaviour {
 }
 
 [System.Serializable]
-public struct InputAxis
+public class InputAxis
 {
 	public string axisName;
 	public float offValue;

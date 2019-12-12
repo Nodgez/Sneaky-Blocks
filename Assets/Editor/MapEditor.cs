@@ -1,6 +1,9 @@
 using UnityEngine;
 using UnityEditor;
 using System.Collections;
+using UnityEditor.AI;
+//using UnityEngine.AI;
+
 [CustomEditor(typeof(Map))]
 [ExecuteInEditMode()]
 public class MapEditor : PlacementEditor {
@@ -51,39 +54,39 @@ public class MapEditor : PlacementEditor {
 				}
 			}
 
-			switch(blockType)
-			{
-			case BlockType.Wall:
-				Material wallMaterial = AssetDatabase.LoadAssetAtPath<Material> ("Assets/Materials/Wall.mat");
-				GameObject wallPart = GameObject.CreatePrimitive(PrimitiveType.Cube);
-				wallPart.transform.position = position;
-				wallPart.layer = 8;
-				wallPart.transform.SetParent(map.transform,true);
-				wallPart.isStatic = true;
-				wallPart.GetComponent<Renderer>().sharedMaterial = wallMaterial;
-				NavMeshBuilder.BuildNavMesh();
-				break;
-			case BlockType.Defensive_Wall:
-				Material defensiveWallMaterial = AssetDatabase.LoadAssetAtPath<Material> ("Assets/Materials/DefensiveWall.mat");
-				Object defensiveWallPrefab = AssetDatabase.LoadAssetAtPath<Object>("Assets/Prefabs/Level/Optional/DefensiveWall.prefab");
-				GameObject defensiveWall = PrefabUtility.InstantiatePrefab(defensiveWallPrefab) as GameObject;
-				defensiveWall.transform.position = position;
-				defensiveWall.transform.SetParent(map.transform,true);
-				defensiveWall.GetComponent<Renderer>().sharedMaterial = defensiveWallMaterial;
-				NavMeshBuilder.BuildNavMesh();
-				break;
-			case BlockType.Destructable_Wall:
-				Material desWallMaterial = AssetDatabase.LoadAssetAtPath<Material> ("Assets/Materials/DestructableWall.mat");
-				GameObject destructableWall = GameObject.CreatePrimitive(PrimitiveType.Cube);
-				destructableWall.name = "D-Wall";
-				destructableWall.transform.position = position;
-				NavMeshObstacle obstacle = destructableWall.AddComponent<NavMeshObstacle>();
-				obstacle.carving = true;
-				destructableWall.transform.SetParent(map.transform,true);
-				destructableWall.GetComponent<Renderer>().sharedMaterial = desWallMaterial;
-				NavMeshBuilder.BuildNavMesh();
-				break;
-			}
+				switch (blockType)
+				{
+					case BlockType.Wall:
+						Material wallMaterial = AssetDatabase.LoadAssetAtPath<Material>("Assets/Materials/Wall.mat");
+						GameObject wallPart = GameObject.CreatePrimitive(PrimitiveType.Cube);
+						wallPart.transform.position = position;
+						wallPart.layer = 8;
+						wallPart.transform.SetParent(map.transform, true);
+						wallPart.isStatic = true;
+						wallPart.GetComponent<Renderer>().sharedMaterial = wallMaterial;
+						NavMeshBuilder.BuildNavMesh();
+						break;
+					case BlockType.Defensive_Wall:
+						Material defensiveWallMaterial = AssetDatabase.LoadAssetAtPath<Material>("Assets/Materials/DefensiveWall.mat");
+						Object defensiveWallPrefab = AssetDatabase.LoadAssetAtPath<Object>("Assets/Prefabs/Level/Optional/DefensiveWall.prefab");
+						GameObject defensiveWall = PrefabUtility.InstantiatePrefab(defensiveWallPrefab) as GameObject;
+						defensiveWall.transform.position = position;
+						defensiveWall.transform.SetParent(map.transform, true);
+						defensiveWall.GetComponent<Renderer>().sharedMaterial = defensiveWallMaterial;
+						NavMeshBuilder.BuildNavMesh();
+						break;
+					case BlockType.Destructable_Wall:
+						Material desWallMaterial = AssetDatabase.LoadAssetAtPath<Material>("Assets/Materials/DestructableWall.mat");
+						GameObject destructableWall = GameObject.CreatePrimitive(PrimitiveType.Cube);
+						destructableWall.name = "D-Wall";
+						destructableWall.transform.position = position;
+						UnityEngine.AI.NavMeshObstacle obstacle = destructableWall.AddComponent<UnityEngine.AI.NavMeshObstacle>();
+						obstacle.carving = true;
+						destructableWall.transform.SetParent(map.transform, true);
+						destructableWall.GetComponent<Renderer>().sharedMaterial = desWallMaterial;
+						NavMeshBuilder.BuildNavMesh();
+						break;
+				}
 
 			break;
 		case EventType.KeyUp:
