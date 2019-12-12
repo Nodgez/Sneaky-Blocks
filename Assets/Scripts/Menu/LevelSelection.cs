@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class LevelSelection : MonoBehaviour {
 
@@ -24,13 +25,8 @@ public class LevelSelection : MonoBehaviour {
             texts[2].text = PlayerPrefs.GetFloat("Level" + (i + 1).ToString() + "Time", 0.00f).ToString("0.00");
 			int levelIndex = i + 1;
 			buttonInstance.onClick.AddListener(delegate {
-				Application.LoadLevel(levelIndex);
+				SceneManager.LoadScene(levelIndex);
 			});
 		}
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
 	}
 }
