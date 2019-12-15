@@ -3,7 +3,7 @@ using System.Collections;
 
 [RequireComponent(typeof(ProximityDetector))]
 [RequireComponent(typeof(Trigger))]
-public class SwitchLever : MonoBehaviour {
+public class SwitchLever : MonoBehaviour, ICameraMoveTo {
 
 	private ProximityDetector _proxDetector;
 	private Trigger _switchTrigger;

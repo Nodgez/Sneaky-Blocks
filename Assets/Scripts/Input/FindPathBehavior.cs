@@ -6,7 +6,6 @@ using UnityEngine.AI;
 public class FindPathBehavior : AbstractBehavior {
 
 	NavMeshAgent agent;
-    bool taplifted = true;
     public GameObject pointer;
 	// Use this for initialization
 	void Start () {
@@ -22,27 +21,19 @@ public class FindPathBehavior : AbstractBehavior {
 			RaycastHit hit;
 			if (Physics.Raycast(ray, out hit) && hit.collider.gameObject.layer != LayerMask.NameToLayer("ShadowLayer"))
 			{
-				agent.SetDestination(hit.point);
-
-				if (taplifted)
-					Instantiate(pointer, hit.point, Quaternion.Euler(90, 0, 0));
+				agent.isStopped = false;
+				agent.destination = hit.point;
 			}
 			else if (hit.collider != null)
 			{
 				Vector3 dir = hit.point - agent.transform.position;
 				Vector3 newDestination = hit.point - dir.normalized;
-				agent.SetDestination(newDestination);
-
-				if (taplifted)
-				{
-					Instantiate(pointer, newDestination, Quaternion.identity);
-				}
+				agent.isStopped = false;
+				agent.destination = hit.point;
 			}
 		}
-		//else if (!agent.isStopped)
-		//	agent.isStopped = true;
-
-        taplifted = !tapped;
+		else if (!tapped)
+			agent.isStopped = true;
     }
 
     public Vector3 Destination {

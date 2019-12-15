@@ -1,4 +1,6 @@
+using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CameraBehavior : MonoBehaviour
 {
@@ -12,7 +14,6 @@ public class CameraBehavior : MonoBehaviour
     public float height;
 
     private bool _zooming = false;
-    private float _zoomLerp = 0;
     private float _storedSize = 0;
 
     void Start()
@@ -36,29 +37,41 @@ public class CameraBehavior : MonoBehaviour
 
     void Update()
     {
-
         transform.position = new Vector3(targetTrasform.position.x, 10, targetTrasform.position.z);
 
         if (!_zooming)
             return;
-        float cameraSize = 0;
-        _zoomLerp += Time.unscaledDeltaTime / 3;
-        cameraSize = _storedSize + Mathf.Clamp01(_zoomLerp) * (minZoom - _storedSize);
-        Camera.main.orthographicSize = cameraSize;
 
-        if (cameraSize == minZoom)
-        {
-            Time.timeScale = 1;
-            Application.LoadLevel(Application.loadedLevel);
-        }
     }
+
+	IEnumerator Zoom()
+	{
+		float t = 0;
+		float cameraSize = 0;
+
+		while (t != 1)
+		{
+			t = Mathf.Clamp01(t + Time.unscaledDeltaTime / 3f);
+			cameraSize = Mathf.Lerp(_storedSize, minZoom, t);
+			Camera.main.orthographicSize = cameraSize;
+			yield return null;
+		}
+
+		if (cameraSize == minZoom)
+		{
+			Time.timeScale = 1;
+			SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+		}
+
+	}
 
     //zoom properties set on event trigger
     void EventZoom()
     {
         Time.timeScale = 0;
-        _zooming = true;
         _storedSize = Camera.main.orthographicSize;
+
+		StartCoroutine(Zoom());
     }
 
     Vector3 Interpolate(Vector3 start, Vector3 end, float interpAmount)
