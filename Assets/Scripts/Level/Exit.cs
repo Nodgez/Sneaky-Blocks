@@ -10,8 +10,11 @@ public class Exit : MonoBehaviour, ICameraMoveTo {
 	private ProximityDetector _detector;
     float t = 0;
 
+	public int CameraPriority { get; set; }
+
     void Start()
 	{
+		CameraPriority = 1;
 		_detector = GetComponent<ProximityDetector> ();
 	}
 

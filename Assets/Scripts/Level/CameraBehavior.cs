@@ -37,14 +37,10 @@ public class CameraBehavior : MonoBehaviour
 
     void Update()
     {
-        transform.position = new Vector3(targetTrasform.position.x, 10, targetTrasform.position.z);
-
-        if (!_zooming)
-            return;
-
+	    transform.position = new Vector3(targetTrasform.position.x, 10, targetTrasform.position.z);
     }
 
-	IEnumerator Zoom()
+    IEnumerator Zoom()
 	{
 		float t = 0;
 		float cameraSize = 0;

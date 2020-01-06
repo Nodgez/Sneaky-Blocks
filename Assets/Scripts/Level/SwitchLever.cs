@@ -8,7 +8,10 @@ public class SwitchLever : MonoBehaviour, ICameraMoveTo {
 	private ProximityDetector _proxDetector;
 	private Trigger _switchTrigger;
 
+	public int CameraPriority { get; set; }
+
 	void Start () {
+		CameraPriority = 2;
 		_proxDetector = GetComponent<ProximityDetector> ();
 		_switchTrigger = GetComponent<Trigger> ();
 	}
