@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.SceneManagement;
+using EasyMobile;
 /*
 * Upon detection of the player's presence,
 * Clear this level and load another one.
@@ -15,7 +16,7 @@ public class Exit : MonoBehaviour, ICameraMoveTo {
 	{
 		CameraPriority = 1;
 		_detector = GetComponent<ProximityDetector> ();
-		int levelToLoad = SceneManager.GetActiveScene().buildIndex + 1 < SceneManager.sceneCount ? SceneManager.GetActiveScene().buildIndex + 1 : 0;
+		int levelToLoad = SceneManager.GetActiveScene().buildIndex + 1 < SceneManager.sceneCountInBuildSettings ? SceneManager.GetActiveScene().buildIndex + 1 : 0;
 		_nextLevelLoadOp = SceneManager.LoadSceneAsync(levelToLoad);
 		_nextLevelLoadOp.allowSceneActivation = false;
 	}
@@ -27,5 +28,7 @@ public class Exit : MonoBehaviour, ICameraMoveTo {
 		BackingTrackManager.Instance.EffectsLibrary.PlayClip(AudioEffects.Win);
 		_nextLevelLoadOp.allowSceneActivation = true;
 		enabled = false;
+
+		Advertising.ShowInterstitialAd();
 	}
 }
