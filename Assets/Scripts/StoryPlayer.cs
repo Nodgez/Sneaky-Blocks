@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class StoryPlayer : MonoBehaviour {
 
@@ -35,9 +36,14 @@ public class StoryPlayer : MonoBehaviour {
         _clipIndex++;
         if (_clipIndex > storyClips.Length - 1)
         {
-            Application.LoadLevel(Application.levelCount - 1);
+            SceneManager.LoadScene(SceneManager.sceneCountInBuildSettings - 1);
             return;
         }
         img.sprite = storyClips[_clipIndex];
     }
+
+	public void ManualNext()
+	{
+		_timer = clipTime;
+	}
 }

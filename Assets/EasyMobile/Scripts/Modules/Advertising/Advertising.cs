@@ -1197,15 +1197,17 @@ namespace EasyMobile
         {
             AdClientImpl client = GetAdClient(network);
 
-            if (client != null && client.Network != AdNetwork.None)
-            {
-                // Subscribe client's events.
-                SubscribeAdClientEvents(client);
+			if (client != null && client.Network != AdNetwork.None)
+			{
+				// Subscribe client's events.
+				SubscribeAdClientEvents(client);
 
-                // Initialize ad client.
-                if (!client.IsInitialized)
-                    client.Init();
-            }
+				// Initialize ad client.
+				if (!client.IsInitialized)
+				{
+					client.Init();
+				}
+			}
 
             return client;
         }

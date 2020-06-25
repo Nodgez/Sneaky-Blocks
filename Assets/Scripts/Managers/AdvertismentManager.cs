@@ -1,51 +1,71 @@
 ﻿using UnityEngine;
 using UnityEngine.Advertisements;
 using System.Collections;
+using EasyMobile;
 
 public class AdvertismentManager : MonoBehaviour {
 
- //   public static AdvertismentManager Instance;
- //   const string AD_COUNT_KEY = "CountUntilAd";
+	private static AdvertismentManager s_instance;
+	public static AdvertismentManager Instance
+	{
+		get { return s_instance; }
+	}
 
- //   void Start () {
+	//   public static AdvertismentManager Instance;
+	//   const string AD_COUNT_KEY = "CountUntilAd";
 
- //       if (Instance == null)
- //       {
- //           Instance = this;
- //           if(Advertisement.isSupported)
- //               Advertisement.Initialize("85995");
+	void Start()
+	{
+		if (s_instance == null)
+		{
+			if (!EasyMobile.RuntimeManager.IsInitialized())
+				EasyMobile.RuntimeManager.Init();
 
- //           if (!PlayerPrefs.HasKey(AD_COUNT_KEY))
- //               PlayerPrefs.SetInt(AD_COUNT_KEY, 0);           
- //       }
- //       else if (this != Instance)
- //           Destroy(this.gameObject);
+			AdvertisingConsentManager.Instance.GrantDataPrivacyConsent();
+			var admobClient = Advertising.AdMobClient;
+			s_instance = this;
+		}
+		else if (this != Instance)
+			Destroy(this.gameObject);
 
- //       PlayerPrefs.SetInt(AD_COUNT_KEY, 0);
+		DontDestroyOnLoad(this.gameObject);
+	}
 
- //       DontDestroyOnLoad(this.gameObject);
- //   }
+	public void ShowInterstitial()
+	{
+		StartCoroutine(CO_ShowInterstitial());
+	}
 
- //   void Update () {
- //       int count =  PlayerPrefs.GetInt(AD_COUNT_KEY);
+	private IEnumerator CO_ShowInterstitial()
+	{
+		Advertising.LoadInterstitialAd();
+		print("loading interstitial....");
+		while (!Advertising.IsInterstitialAdReady())
+			yield return null;
+		print("showing interstitial....");
+		Advertising.ShowInterstitialAd();
+	}
 
- //       if (Advertisement.IsReady() && !Advertisement.isShowing && count <= 0)
- //       {
- //           Advertisement.Show(null, new ShowOptions { resultCallback = delegate {
- //               Time.timeScale = 1;
- //           } });
- //           PlayerPrefs.SetInt(AD_COUNT_KEY, 20);
- //           PlayerPrefs.Save();
- //       }
+	//   void Update () {
+	//       int count =  PlayerPrefs.GetInt(AD_COUNT_KEY);
 
- //       if (Advertisement.isShowing)
- //       {
- //           Time.timeScale = 0;
- //       }
+	//       if (Advertisement.IsReady() && !Advertisement.isShowing && count <= 0)
+	//       {
+	//           Advertisement.Show(null, new ShowOptions { resultCallback = delegate {
+	//               Time.timeScale = 1;
+	//           } });
+	//           PlayerPrefs.SetInt(AD_COUNT_KEY, 20);
+	//           PlayerPrefs.Save();
+	//       }
+
+	//       if (Advertisement.isShowing)
+	//       {
+	//           Time.timeScale = 0;
+	//       }
 	//}
 
- //   void OnLevelWasLoaded()
- //   {
- //       PlayerPrefs.SetInt(AD_COUNT_KEY, PlayerPrefs.GetInt(AD_COUNT_KEY) - 1);
- //   }
+	//   void OnLevelWasLoaded()
+	//   {
+	//       PlayerPrefs.SetInt(AD_COUNT_KEY, PlayerPrefs.GetInt(AD_COUNT_KEY) - 1);
+	//   }
 }
