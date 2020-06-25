@@ -31,7 +31,7 @@ public class InputState : MonoBehaviour {
 		if (buttonStates.ContainsKey (key))
 			value = buttonStates [key].value;
 		else {
-			Debug.Log(key + " Not Mapped");
+			//Debug.Log(key + " Not Mapped");
 			value = false;
 		}
 	}
@@ -41,7 +41,7 @@ public class InputState : MonoBehaviour {
 		if (buttonStates.ContainsKey (key))
 			holdTime = buttonStates [key].holdTime;
 		else {
-			Debug.Log("Not Mapped");
+			//Debug.Log("Not Mapped");
 			holdTime = 0;
 		}
 	}

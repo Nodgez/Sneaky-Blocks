@@ -1,7 +1,5 @@
 ﻿using UnityEngine;
-using System.Collections;
 using UnityEngine.SceneManagement;
-using EasyMobile;
 /*
 * Upon detection of the player's presence,
 * Clear this level and load another one.
@@ -28,7 +26,6 @@ public class Exit : MonoBehaviour, ICameraMoveTo {
 		BackingTrackManager.Instance.EffectsLibrary.PlayClip(AudioEffects.Win);
 		_nextLevelLoadOp.allowSceneActivation = true;
 		enabled = false;
-
-		Advertising.ShowInterstitialAd();
+		AdvertismentManager.Instance.ShowInterstitial();
 	}
 }
