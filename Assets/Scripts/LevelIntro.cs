@@ -9,8 +9,8 @@ public class LevelIntro : MonoBehaviour
 	[SerializeField]
 	[Range(0.25f, 5f)]
 	private float _cameraCycleSpeed;
-	private InputManager _inputManager;
 	private CameraBehavior _cameraBehavior;
+	private FindPathBehavior _findPathBehavior;
 	private List<ICameraMoveTo> _cameraMoveToPath = new List<ICameraMoveTo>();
 
 	public Action OnIntroCycleComplete;
@@ -19,10 +19,11 @@ public class LevelIntro : MonoBehaviour
 	{
 		_cameraBehavior = FindObjectOfType<CameraBehavior>();
 		_cameraMoveToPath = FindObjectsOfType<MonoBehaviour>().OfType<ICameraMoveTo>().OrderBy(x => x.CameraPriority).ToList();// this line hurts my soul
-		_inputManager = FindObjectOfType<InputManager>();
+		_findPathBehavior = _cameraMoveToPath.Last().ConvertToComponent<FindPathBehavior>();
 
+		_findPathBehavior.enabled = false;
 		_cameraBehavior.enabled = false;
-		_inputManager.enabled = false;
+		_cameraBehavior.transform.position = (_cameraMoveToPath[0] as MonoBehaviour).transform.position;
 
 		foreach (var pt in _cameraMoveToPath)
 			Debug.Log(pt.ToString());
@@ -38,7 +39,7 @@ public class LevelIntro : MonoBehaviour
 
 		foreach (var pt in _cameraMoveToPath)
 		{
-			var cameraLerpEnd = (pt as MonoBehaviour).transform.position + new Vector3(0, cameraLerpStart.y, 0);
+			var cameraLerpEnd = (pt as MonoBehaviour).transform.position + new Vector3(0, 10, 0);
 			while (t != 1)
 			{
 				t = Mathf.Clamp01(t += Time.deltaTime / _cameraCycleSpeed);
@@ -51,7 +52,7 @@ public class LevelIntro : MonoBehaviour
 		}
 
 		_cameraBehavior.enabled = true;
-		_inputManager.enabled = true;
+		_findPathBehavior.enabled = true;
 
 		OnIntroCycleComplete();
 	}

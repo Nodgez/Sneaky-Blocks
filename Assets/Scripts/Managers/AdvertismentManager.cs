@@ -2,6 +2,7 @@
 using UnityEngine.Advertisements;
 using System.Collections;
 using EasyMobile;
+using System;
 
 public class AdvertismentManager : MonoBehaviour {
 
@@ -33,33 +34,18 @@ public class AdvertismentManager : MonoBehaviour {
 		DontDestroyOnLoad(this.gameObject);
 	}
 
-	private void OnEnable()
+	public void TriggerInterstitial(Action<InterstitialAdNetwork, AdPlacement> onInterstitialComplete)
 	{
-		Advertising.InterstitialAdCompleted += Advertising_InterstitialAdCompleted;
-	}
-
-	private void OnDisable()
-	{
-		Advertising.InterstitialAdCompleted -= Advertising_InterstitialAdCompleted;
-	}
-
-	public void TriggerInterstitial()
-	{
+		Advertising.InterstitialAdCompleted += onInterstitialComplete;
 		StartCoroutine(CO_ShowInterstitial());
 	}
 
 	private IEnumerator CO_ShowInterstitial()
 	{
 		Advertising.LoadInterstitialAd();
-		WaitingOnInterstitial = true;
 		while (!Advertising.IsInterstitialAdReady())
 			yield return null;
 		Advertising.ShowInterstitialAd();
-	}
-
-	private void Advertising_InterstitialAdCompleted(InterstitialAdNetwork arg1, AdPlacement arg2)
-	{
-		WaitingOnInterstitial = false;
 	}
 
 	public void ShowBanner()

@@ -8,11 +8,25 @@ using UnityEngine.SceneManagement;
 public class Exit : MonoBehaviour, ICameraMoveTo {
 	private ProximityDetector _detector;
 	AsyncOperation _nextLevelLoadOp;
-	public int CameraPriority { get; set; }
 
-    void Start()
+	[SerializeField]
+	private int _cameraPriority = 0;
+	public int CameraPriority
 	{
-		CameraPriority = 1;
+		get
+		{
+			return _cameraPriority;
+		}
+	}
+
+	public T ConvertToComponent<T>() where T : MonoBehaviour
+	{
+		var component = this.GetComponent<T>();
+		return component;
+	}
+
+	void Start()
+	{
 		_detector = GetComponent<ProximityDetector> ();
 		int levelToLoad = SceneManager.GetActiveScene().buildIndex + 1 < SceneManager.sceneCountInBuildSettings ? SceneManager.GetActiveScene().buildIndex + 1 : 0;
 		_nextLevelLoadOp = SceneManager.LoadSceneAsync(levelToLoad);
@@ -24,8 +38,15 @@ public class Exit : MonoBehaviour, ICameraMoveTo {
 		if (!_detector.DetectTargets())
 			return;
 			
-		_nextLevelLoadOp.allowSceneActivation = true;
 		enabled = false;
-		AdvertismentManager.Instance.TriggerInterstitial();
+		if (AdvertismentManager.Instance != null)
+		{
+			AdvertismentManager.Instance.TriggerInterstitial((adnetwork, placement) =>
+			{
+				_nextLevelLoadOp.allowSceneActivation = true;
+			});
+		}
+		else
+			_nextLevelLoadOp.allowSceneActivation = true;
 	}
 }

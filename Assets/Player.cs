@@ -4,10 +4,19 @@ using UnityEngine;
 
 public class Player : MonoBehaviour, ICameraMoveTo
 {
-	public int CameraPriority	{ get; set; }
-
-	void Start()
+	[SerializeField]
+	private int _cameraPriority = 0;
+	public int CameraPriority
 	{
-		CameraPriority = 3;
+		get
+		{
+			return _cameraPriority;
+		}
+	}
+
+	public T ConvertToComponent<T>() where T : MonoBehaviour
+	{
+		var component = this.GetComponent<T>();
+		return component;
 	}
 }
