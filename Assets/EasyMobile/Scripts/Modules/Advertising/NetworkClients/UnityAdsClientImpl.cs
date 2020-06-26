@@ -94,6 +94,7 @@ namespace EasyMobile
             {
 #if UNITY_ADS || UNITY_MONETIZATION
                 return mIsInitialized && Advertisement.isInitialized;
+
 #else
 				return mIsInitialized;
 #endif

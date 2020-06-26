@@ -174,7 +174,11 @@ namespace EasyMobile
         /// <c>false</c>
         public virtual bool IsInitialized
         {
-            get { return mIsInitialized; }
+			get
+			{
+				Debug.Log("Type Init state: " + GetType().ToString());
+				return mIsInitialized;
+			}
         }
 
         /// <summary>
@@ -543,10 +547,13 @@ namespace EasyMobile
 
             bool isInit = IsInitialized;
 
-            if (!isInit && logMessage)
-                Debug.Log("Please initialize the " + Network.ToString() + " client first.");
+			if (!isInit && logMessage)
+				Debug.Log("Please initialize the " + Network.ToString() + " client first.");
+			else if(logMessage)
+				Debug.Log(Network.ToString() + " client checked and ready.");
 
-            return isInit;
+
+			return isInit;
         }
 
         /// <summary>
