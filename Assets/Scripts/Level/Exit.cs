@@ -23,9 +23,9 @@ public class Exit : MonoBehaviour, ICameraMoveTo {
 	{
 		if (!_detector.DetectTargets())
 			return;
-		BackingTrackManager.Instance.EffectsLibrary.PlayClip(AudioEffects.Win);
+			
 		_nextLevelLoadOp.allowSceneActivation = true;
 		enabled = false;
-		AdvertismentManager.Instance.ShowInterstitial();
+		AdvertismentManager.Instance.TriggerInterstitial();
 	}
 }

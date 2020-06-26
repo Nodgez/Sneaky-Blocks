@@ -13,7 +13,6 @@ public class CameraBehavior : MonoBehaviour
     public float width;
     public float height;
 
-    private bool _zooming = false;
     private float _storedSize = 0;
 
     void Start()
