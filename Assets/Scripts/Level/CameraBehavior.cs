@@ -4,7 +4,6 @@ using UnityEngine.SceneManagement;
 
 public class CameraBehavior : MonoBehaviour
 {
-
     public Transform targetTrasform;
     public float minZoom = 3;
     public float midZoom = 5;
@@ -21,7 +20,7 @@ public class CameraBehavior : MonoBehaviour
         EventPool eventPool = GameObject.FindObjectOfType<EventPool>();
         GameEvent playerFoundEvent;
         eventPool.GetEventFromPool("Player Found", out playerFoundEvent);
-        playerFoundEvent.onHandleEvent += EventZoom;
+        //playerFoundEvent.onHandleEvent += EventZoom;
 
         Vector3 mapScale = Vector3.zero;
         float area = width * height;

@@ -8,10 +8,17 @@ public class SwitchLever : MonoBehaviour, ICameraMoveTo {
 	private ProximityDetector _proxDetector;
 	private Trigger _switchTrigger;
 
-	public int CameraPriority { get; set; }
+	[SerializeField]
+	private int _cameraPriority = 0;
+	public int CameraPriority
+	{
+		get
+		{
+			return _cameraPriority;
+		}
+	}
 
 	void Start () {
-		CameraPriority = 2;
 		_proxDetector = GetComponent<ProximityDetector> ();
 		_switchTrigger = GetComponent<Trigger> ();
 	}
@@ -27,4 +34,11 @@ public class SwitchLever : MonoBehaviour, ICameraMoveTo {
 
         transform.Rotate(Vector3.up, Time.deltaTime * 100);
 	}
+
+	public T ConvertToComponent<T>() where T : MonoBehaviour
+	{
+		var component = this.GetComponent<T>();
+		return component;
+	}
+
 }
