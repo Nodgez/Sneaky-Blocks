@@ -18,11 +18,12 @@ public class AdvertismentManager : MonoBehaviour {
 	{
 		if (s_instance == null)
 		{
-			if (!EasyMobile.RuntimeManager.IsInitialized())
-				EasyMobile.RuntimeManager.Init();
-
 			AdvertisingConsentManager.Instance.GrantDataPrivacyConsent();
-			var admobClient = Advertising.AdMobClient;
+			if (!EasyMobile.RuntimeManager.IsInitialized())
+			{
+				EasyMobile.RuntimeManager.Init();
+				//Advertising.UnityAdsClient.Init();
+			}
 			s_instance = this;
 		}
 		else if (this != Instance)
@@ -39,11 +40,14 @@ public class AdvertismentManager : MonoBehaviour {
 	private IEnumerator CO_ShowInterstitial()
 	{
 		Advertising.LoadInterstitialAd();
-		print("loading interstitial....");
 		while (!Advertising.IsInterstitialAdReady())
 			yield return null;
-		print("showing interstitial....");
 		Advertising.ShowInterstitialAd();
+	}
+	
+	public void ShowBanner()
+	{
+		Advertising.ShowBannerAd(BannerAdPosition.Bottom);
 	}
 
 	//   void Update () {
