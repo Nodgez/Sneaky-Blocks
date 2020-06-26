@@ -11,8 +11,11 @@ public class AdvertismentManager : MonoBehaviour {
 		get { return s_instance; }
 	}
 
-	//   public static AdvertismentManager Instance;
-	//   const string AD_COUNT_KEY = "CountUntilAd";
+	public bool WaitingOnInterstitial
+	{
+		get;
+		private set;
+	}
 
 	void Start()
 	{
@@ -20,10 +23,8 @@ public class AdvertismentManager : MonoBehaviour {
 		{
 			AdvertisingConsentManager.Instance.GrantDataPrivacyConsent();
 			if (!EasyMobile.RuntimeManager.IsInitialized())
-			{
 				EasyMobile.RuntimeManager.Init();
-				//Advertising.UnityAdsClient.Init();
-			}
+			
 			s_instance = this;
 		}
 		else if (this != Instance)
@@ -32,7 +33,17 @@ public class AdvertismentManager : MonoBehaviour {
 		DontDestroyOnLoad(this.gameObject);
 	}
 
-	public void ShowInterstitial()
+	private void OnEnable()
+	{
+		Advertising.InterstitialAdCompleted += Advertising_InterstitialAdCompleted;
+	}
+
+	private void OnDisable()
+	{
+		Advertising.InterstitialAdCompleted -= Advertising_InterstitialAdCompleted;
+	}
+
+	public void TriggerInterstitial()
 	{
 		StartCoroutine(CO_ShowInterstitial());
 	}
@@ -40,36 +51,19 @@ public class AdvertismentManager : MonoBehaviour {
 	private IEnumerator CO_ShowInterstitial()
 	{
 		Advertising.LoadInterstitialAd();
+		WaitingOnInterstitial = true;
 		while (!Advertising.IsInterstitialAdReady())
 			yield return null;
 		Advertising.ShowInterstitialAd();
 	}
-	
+
+	private void Advertising_InterstitialAdCompleted(InterstitialAdNetwork arg1, AdPlacement arg2)
+	{
+		WaitingOnInterstitial = false;
+	}
+
 	public void ShowBanner()
 	{
 		Advertising.ShowBannerAd(BannerAdPosition.Bottom);
 	}
-
-	//   void Update () {
-	//       int count =  PlayerPrefs.GetInt(AD_COUNT_KEY);
-
-	//       if (Advertisement.IsReady() && !Advertisement.isShowing && count <= 0)
-	//       {
-	//           Advertisement.Show(null, new ShowOptions { resultCallback = delegate {
-	//               Time.timeScale = 1;
-	//           } });
-	//           PlayerPrefs.SetInt(AD_COUNT_KEY, 20);
-	//           PlayerPrefs.Save();
-	//       }
-
-	//       if (Advertisement.isShowing)
-	//       {
-	//           Time.timeScale = 0;
-	//       }
-	//}
-
-	//   void OnLevelWasLoaded()
-	//   {
-	//       PlayerPrefs.SetInt(AD_COUNT_KEY, PlayerPrefs.GetInt(AD_COUNT_KEY) - 1);
-	//   }
 }

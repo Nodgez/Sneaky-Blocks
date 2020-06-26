@@ -6,9 +6,14 @@ using UnityEngine;
 
 public class LevelIntro : MonoBehaviour
 {
+	[SerializeField]
+	[Range(0.25f, 5f)]
+	private float _cameraCycleSpeed;
 	private InputManager _inputManager;
 	private CameraBehavior _cameraBehavior;
 	private List<ICameraMoveTo> _cameraMoveToPath = new List<ICameraMoveTo>();
+
+	public Action OnIntroCycleComplete;
 
 	void Start()
 	{
@@ -16,6 +21,8 @@ public class LevelIntro : MonoBehaviour
 		_cameraMoveToPath = FindObjectsOfType<MonoBehaviour>().OfType<ICameraMoveTo>().OrderBy(x => x.CameraPriority).ToList();// this line hurts my soul
 		_inputManager = FindObjectOfType<InputManager>();
 
+		_cameraBehavior.enabled = false;
+		_inputManager.enabled = false;
 
 		foreach (var pt in _cameraMoveToPath)
 			Debug.Log(pt.ToString());
@@ -29,15 +36,13 @@ public class LevelIntro : MonoBehaviour
 		var cameraTransform = _cameraBehavior.transform;
 		var cameraLerpStart = cameraTransform.position;
 
-		_cameraBehavior.enabled = false;
-		_inputManager.enabled = false;
 		foreach (var pt in _cameraMoveToPath)
 		{
-			var cameraLerpEnd = (pt as MonoBehaviour).transform.position + new Vector3(0,10,0 );
+			var cameraLerpEnd = (pt as MonoBehaviour).transform.position + new Vector3(0, cameraLerpStart.y, 0);
 			while (t != 1)
 			{
-				t = Mathf.Clamp01(t += Time.deltaTime);
-				cameraTransform.position = Vector3.Lerp(cameraLerpStart, cameraLerpEnd, EasingFunction.EaseInQuart(0, 1, t));
+				t = Mathf.Clamp01(t += Time.deltaTime / _cameraCycleSpeed);
+				cameraTransform.position = Vector3.Lerp(cameraLerpStart, cameraLerpEnd, EasingFunction.EaseInOutCubic(0, 1, t));
 				yield return null;
 			}
 			yield return waitHalfASecond;
@@ -47,5 +52,7 @@ public class LevelIntro : MonoBehaviour
 
 		_cameraBehavior.enabled = true;
 		_inputManager.enabled = true;
+
+		OnIntroCycleComplete();
 	}
 }
