@@ -34,15 +34,27 @@ public class AdvertismentManager : MonoBehaviour {
 		DontDestroyOnLoad(this.gameObject);
 	}
 
+	private void OnEnable()
+	{
+		Advertising.InterstitialAdCompleted += Advertising.LoadInterstitialAd;
+	}
+
+	private void OnDisable()
+	{
+		Advertising.InterstitialAdCompleted -= Advertising.LoadInterstitialAd;
+	}
+
 	public void TriggerInterstitial(Action<InterstitialAdNetwork, AdPlacement> onInterstitialComplete)
 	{
+		if (!Advertising.IsInterstitialAdReady())
+			return;
+
 		Advertising.InterstitialAdCompleted += onInterstitialComplete;
-		StartCoroutine(CO_ShowInterstitial());
+		Advertising.ShowInterstitialAd();
 	}
 
 	private IEnumerator CO_ShowInterstitial()
 	{
-		Advertising.LoadInterstitialAd();
 		while (!Advertising.IsInterstitialAdReady())
 			yield return null;
 		Advertising.ShowInterstitialAd();
