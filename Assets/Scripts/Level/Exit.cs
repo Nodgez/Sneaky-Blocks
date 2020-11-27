@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 * Clear this level and load another one.
 */
 [RequireComponent(typeof(ProximityDetector))]
-public class Exit : MonoBehaviour, ICameraMoveTo {
+public class Exit : MonoBehaviour, ICameraTarget {
 	private ProximityDetector _detector;
 	AsyncOperation _nextLevelLoadOp;
 

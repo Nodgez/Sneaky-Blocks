@@ -11,14 +11,14 @@ public class LevelIntro : MonoBehaviour
 	private float _cameraCycleSpeed;
 	private CameraBehavior _cameraBehavior;
 	private FindPathBehavior _findPathBehavior;
-	private List<ICameraMoveTo> _cameraMoveToPath = new List<ICameraMoveTo>();
+	private List<ICameraTarget> _cameraMoveToPath = new List<ICameraTarget>();
 
 	public Action OnIntroCycleComplete;
 
 	void Start()
 	{
 		_cameraBehavior = FindObjectOfType<CameraBehavior>();
-		_cameraMoveToPath = FindObjectsOfType<MonoBehaviour>().OfType<ICameraMoveTo>().OrderBy(x => x.CameraPriority).ToList();// this line hurts my soul
+		_cameraMoveToPath = FindObjectsOfType<MonoBehaviour>().OfType<ICameraTarget>().OrderBy(x => x.CameraPriority).ToList();// this line hurts my soul
 		_findPathBehavior = _cameraMoveToPath.Last().ConvertToComponent<FindPathBehavior>();
 
 		_findPathBehavior.enabled = false;
