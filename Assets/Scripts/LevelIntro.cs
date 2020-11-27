@@ -23,9 +23,9 @@ public class LevelIntro : MonoBehaviour
 
 		_findPathBehavior.enabled = false;
 		_cameraBehavior.enabled = false;
-		_cameraBehavior.transform.position = (_cameraMoveToPath[0] as MonoBehaviour).transform.position;
+		_cameraBehavior.transform.position = (_cameraMoveToPath[0] as MonoBehaviour).transform.position + new Vector3(0, 10, 0);
 
-		foreach (var pt in _cameraMoveToPath)
+        foreach (var pt in _cameraMoveToPath)
 			Debug.Log(pt.ToString());
 		StartCoroutine(CyclePoints());
 	}
