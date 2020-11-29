@@ -35,9 +35,9 @@ public class Locomotion
         AnimatorStateInfo state = m_Animator.GetCurrentAnimatorStateInfo(0);
 
         bool inTransition = m_Animator.IsInTransition(0);
-        bool inIdle = state.IsName("Locomotion.Idle");
-        bool inTurn = state.IsName("Locomotion.TurnOnSpot") || state.IsName("Locomotion.PlantNTurnLeft") || state.IsName("Locomotion.PlantNTurnRight");
-        bool inWalkRun = state.IsName("Locomotion.WalkRun");
+        bool inIdle = state.IsName("Idle");
+        bool inTurn = state.IsName("TurnOnSpot") || state.IsName("PlantNTurnLeft") || state.IsName("PlantNTurnRight");
+        bool inWalkRun = state.IsName("Movement");
 
         float speedDampTime = inIdle ? 0 : m_SpeedDampTime;
         float angularSpeedDampTime = inWalkRun || inTransition ? m_AnguarSpeedDampTime : 0;

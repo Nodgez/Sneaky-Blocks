@@ -32,8 +32,8 @@ public class FindPathBehavior : AbstractBehavior {
 				agent.destination = hit.point;
 			}
 		}
-		else if (!tapped)
-			agent.isStopped = true;
+        else if (!tapped)
+            agent.isStopped = true;
     }
 
     public Vector3 Destination {

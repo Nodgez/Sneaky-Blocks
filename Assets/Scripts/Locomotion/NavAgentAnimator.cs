@@ -23,27 +23,6 @@ public class NavAgentAnimator : MonoBehaviour
 
     private void Update()
     {
-        //var worldDeltaPosition = agent.nextPosition - transform.position;
-
-        //var dx = Vector3.Dot(transform.right, worldDeltaPosition);
-        //var dy = Vector3.Dot(transform.forward, worldDeltaPosition);
-        //var deltaPosition = new Vector3(dx, dy);
-
-        //var smooth = Mathf.Min(1.0f, Time.deltaTime / 0.15f);
-        //smoothDeltaPosition = Vector2.Lerp(smoothDeltaPosition, deltaPosition, smooth);
-
-        //if (Time.deltaTime > 1e-5f)
-        //    velocity = smoothDeltaPosition / Time.deltaTime;
-
-        //var shouldMove = velocity.magnitude > 0.5f && agent.remainingDistance > agent.radius;
-
-        //animator.SetBool("Move", shouldMove);
-        //animator.SetFloat("VelX", velocity.x);
-        //animator.SetFloat("VelY", velocity.y);
-
-        //if (worldDeltaPosition.magnitude > agent.radius)
-        //    transform.position = agent.nextPosition - 0.9f * worldDeltaPosition;
-
         if (!AgentDone())
         {
             float speed = agent.desiredVelocity.magnitude;
