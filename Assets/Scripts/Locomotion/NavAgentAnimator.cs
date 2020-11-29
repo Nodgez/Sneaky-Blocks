@@ -7,10 +7,17 @@ using UnityEngine.AI;
 public class NavAgentAnimator : MonoBehaviour
 {
     private NavMeshAgent agent;
-    private Vector2 smoothDeltaPosition = Vector2.zero;
     private Vector2 velocity;
+    private float distanceFromWall;
     private Locomotion locomotion;
     private Animator animator;
+
+    [SerializeField]
+    private float agentDesiredSpeed = 5.5f;
+    [SerializeField]
+    private float collisionDistanceCheck = 2f;
+    [SerializeField]
+    private LayerMask collisionCheck;
 
     // Start is called before the first frame update
     void Start()
@@ -25,6 +32,19 @@ public class NavAgentAnimator : MonoBehaviour
     {
         if (!AgentDone())
         {
+            RaycastHit info;
+            var wallNear = Physics.Raycast(transform.position, agent.desiredVelocity.normalized, out info, collisionDistanceCheck, collisionCheck);
+            var speedModifier = 1f;
+
+            if (wallNear)
+            {
+                var oldDistance = distanceFromWall;
+                var newDistanceFromWall = Vector3.Distance(info.point, transform.position); ;
+                distanceFromWall = oldDistance * 0.9f + newDistanceFromWall * 0.1f;
+                speedModifier = distanceFromWall / collisionDistanceCheck;
+            }
+
+            agent.speed = agentDesiredSpeed * speedModifier;
             float speed = agent.desiredVelocity.magnitude;
             Vector3 velocity = Quaternion.Inverse(animator.rootRotation) * agent.desiredVelocity;
 
@@ -52,4 +72,15 @@ public class NavAgentAnimator : MonoBehaviour
                 agent.remainingDistance <= agent.stoppingDistance &&
                 agent.isStopped;
     }
+
+#if UNITY_EDITOR
+    private void OnDrawGizmos()
+    {
+        if (agent)
+        {
+            Gizmos.color = new Color(1, 1, 0);
+            Gizmos.DrawLine(transform.position, transform.position + agent.desiredVelocity.normalized * collisionDistanceCheck);
+        }
+    }
+#endif
 }

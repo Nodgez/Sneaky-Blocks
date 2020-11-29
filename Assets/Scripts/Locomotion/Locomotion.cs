@@ -36,12 +36,12 @@ public class Locomotion
 
         bool inTransition = m_Animator.IsInTransition(0);
         bool inIdle = state.IsName("Idle");
-        bool inTurn = state.IsName("TurnOnSpot") || state.IsName("PlantNTurnLeft") || state.IsName("PlantNTurnRight");
+        bool inTurn = state.IsName("TurnOnSpot");// state.IsName("PlantNTurnLeft") || state.IsName("PlantNTurnRight");
         bool inWalkRun = state.IsName("Movement");
 
         float speedDampTime = inIdle ? 0 : m_SpeedDampTime;
         float angularSpeedDampTime = inWalkRun || inTransition ? m_AnguarSpeedDampTime : 0;
-        float directionDampTime = inTurn || inTransition && (direction > 0) ? 1000000 : 0;
+        float directionDampTime = inTurn || inTransition && (direction > 0) ? 10000 : 0;
 
         float angularSpeed = direction / m_DirectionResponseTime;
 
