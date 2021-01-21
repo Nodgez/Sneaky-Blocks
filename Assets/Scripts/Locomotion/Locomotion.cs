@@ -5,13 +5,13 @@ public class Locomotion
 {
     private Animator m_Animator = null;
 
-    private int m_SpeedId = 0;
-    private int m_AgularSpeedId = 0;
-    private int m_DirectionId = 0;
+    public static int m_SpeedId = 0;
+    public static int m_AgularSpeedId = 0;
+    public static int m_DirectionId = 0;
 
-    public float m_SpeedDampTime = 0.1f;
-    public float m_AnguarSpeedDampTime = 0.25f;
-    public float m_DirectionResponseTime = 0.5f;
+    public static float m_SpeedDampTime = 0.1f;
+    public static float m_AnguarSpeedDampTime = 0.35f;
+    public static float m_DirectionResponseTime = 0.5f;
 
 
     public Locomotion(Animator animator)
@@ -36,7 +36,7 @@ public class Locomotion
 
         bool inTransition = m_Animator.IsInTransition(0);
         bool inIdle = state.IsName("Idle");
-        bool inTurn = state.IsName("TurnOnSpot");// state.IsName("PlantNTurnLeft") || state.IsName("PlantNTurnRight");
+        bool inTurn = state.IsName("TurnOnSpot") || state.IsName("PlantNTurnLeft") || state.IsName("PlantNTurnRight");
         bool inWalkRun = state.IsName("Movement");
 
         float speedDampTime = inIdle ? 0 : m_SpeedDampTime;

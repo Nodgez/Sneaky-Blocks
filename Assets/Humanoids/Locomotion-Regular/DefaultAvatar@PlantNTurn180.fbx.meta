@@ -1463,7 +1463,7 @@ ModelImporter:
       takeName: _74_a_U1_M_P_PlantNTurn180_Run_R_Fb_p180_No_0_PJ_4
       internalID: 0
       firstFrame: 151
-      lastFrame: 194.7
+      lastFrame: 203
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -1486,13 +1486,13 @@ ModelImporter:
       transformMask: []
       maskType: 0
       maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
+      additiveReferencePoseFrame: 78
     - serializedVersion: 16
       name: PlantNTurnRight180
       takeName: _74_a_U1_M_P_PlantNTurn180_Run_R_Fb_p180_No_0_PJ_4
       internalID: 0
       firstFrame: 151
-      lastFrame: 194.7
+      lastFrame: 203
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -1515,12 +1515,12 @@ ModelImporter:
       transformMask: []
       maskType: 0
       maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
+      additiveReferencePoseFrame: 78
     - serializedVersion: 16
       name: IdleToTurnLeft180
       takeName: _74_a_U1_M_P_PlantNTurn180_Run_R_Fb_p180_No_0_PJ_4
       internalID: 0
-      firstFrame: 160
+      firstFrame: 78
       lastFrame: 210
       wrapMode: 0
       orientationOffsetY: 0
@@ -1531,7 +1531,7 @@ ModelImporter:
       loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 0
-      loopBlendPositionY: 0
+      loopBlendPositionY: 1
       loopBlendPositionXZ: 0
       keepOriginalOrientation: 0
       keepOriginalPositionY: 0

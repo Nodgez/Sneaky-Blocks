@@ -10,6 +10,7 @@ public class FieldOfView : MonoBehaviour {
 	public Material viewMaterial;
 	public int viewAngle;
 	public float radius;
+    public LayerMask detectionLayer;
 	
 	void Awake()
 	{
@@ -47,7 +48,7 @@ public class FieldOfView : MonoBehaviour {
 			Ray ray = new Ray(transform.position
 			                  ,point1 - transform.position);
 
-			if(Physics.Raycast(ray,out hit, radius, 1 << 8))
+			if(Physics.Raycast(ray,out hit, radius, detectionLayer))
 				point1 = hit.point;
 
 			point1 = transform.InverseTransformPoint(point1);

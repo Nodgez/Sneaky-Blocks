@@ -13,7 +13,7 @@ public class CameraBehavior : MonoBehaviour
     public float height;
 
     private float _storedSize = 0;
-
+    private Vector3 velocity;
     void Start()
     {
         //Find the event pool and add the event to it
@@ -35,7 +35,10 @@ public class CameraBehavior : MonoBehaviour
 
     void Update()
     {
-	    transform.position = new Vector3(targetTrasform.position.x, 10, targetTrasform.position.z);
+        
+        var newTargetPosition = new Vector3(targetTrasform.position.x, 10, targetTrasform.position.z);
+        var cameraDirection = (Input.mousePosition - newTargetPosition).normalized;
+        transform.position = Vector3.SmoothDamp(transform.position, newTargetPosition + cameraDirection, ref velocity, 0.3f);
     }
 
     IEnumerator Zoom()

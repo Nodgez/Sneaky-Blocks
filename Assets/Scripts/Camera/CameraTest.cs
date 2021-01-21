@@ -98,6 +98,6 @@ public class CameraTest : MonoBehaviour {
 
     void EventZoom()
     {
-        Application.LoadLevel(Application.loadedLevel);
+        UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex);
     }
 }

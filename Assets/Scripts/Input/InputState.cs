@@ -9,6 +9,7 @@ public class InputState : MonoBehaviour {
 
 	void Update()
 	{
+        
 		gesturePosition = Input.mousePosition;
 	}
 

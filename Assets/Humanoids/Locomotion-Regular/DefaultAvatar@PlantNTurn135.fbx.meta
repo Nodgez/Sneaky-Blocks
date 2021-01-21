@@ -1424,10 +1424,10 @@ ModelImporter:
     second: //RootNode
   - first:
       74: -6024890897798516938
-    second: IdleTurnLeft135
+    second: Run2Stopleft
   - first:
       74: -3091561837497982256
-    second: IdleTurnRight135
+    second: Run2StopRight
   externalObjects: {}
   materials:
     materialImportMode: 1
@@ -1462,8 +1462,8 @@ ModelImporter:
       name: PlantNTurnLeft135
       takeName: _73_a_U1_M_P_PlantNTurn135_Run_R_Fb_p135_No_0_PJ__4
       internalID: 0
-      firstFrame: 96.6
-      lastFrame: 130.4
+      firstFrame: 96
+      lastFrame: 139
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -1486,13 +1486,13 @@ ModelImporter:
       transformMask: []
       maskType: 0
       maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
+      additiveReferencePoseFrame: 30
     - serializedVersion: 16
       name: PlantNTurnRigh135
       takeName: _73_a_U1_M_P_PlantNTurn135_Run_R_Fb_p135_No_0_PJ__4
       internalID: 0
       firstFrame: 96
-      lastFrame: 130.4
+      lastFrame: 139
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -1515,13 +1515,13 @@ ModelImporter:
       transformMask: []
       maskType: 0
       maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
+      additiveReferencePoseFrame: 30
     - serializedVersion: 16
-      name: IdleTurnLeft135
+      name: Run2Stopleft
       takeName: _73_a_U1_M_P_PlantNTurn135_Run_R_Fb_p135_No_0_PJ__4
       internalID: 0
-      firstFrame: 110
-      lastFrame: 144
+      firstFrame: 90
+      lastFrame: 99
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -1546,11 +1546,11 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 30
     - serializedVersion: 16
-      name: IdleTurnRight135
+      name: Run2StopRight
       takeName: _73_a_U1_M_P_PlantNTurn135_Run_R_Fb_p135_No_0_PJ__4
       internalID: 0
-      firstFrame: 110
-      lastFrame: 144
+      firstFrame: 90
+      lastFrame: 99
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -1566,7 +1566,7 @@ ModelImporter:
       keepOriginalPositionY: 0
       keepOriginalPositionXZ: 0
       heightFromFeet: 1
-      mirror: 0
+      mirror: 1
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events: []
