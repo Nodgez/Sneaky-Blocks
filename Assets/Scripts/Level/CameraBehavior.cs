@@ -35,7 +35,6 @@ public class CameraBehavior : MonoBehaviour
 
     void Update()
     {
-        
         var newTargetPosition = new Vector3(targetTrasform.position.x, 10, targetTrasform.position.z);
         var cameraDirection = (Input.mousePosition - newTargetPosition).normalized;
         transform.position = Vector3.SmoothDamp(transform.position, newTargetPosition + cameraDirection, ref velocity, 0.3f);

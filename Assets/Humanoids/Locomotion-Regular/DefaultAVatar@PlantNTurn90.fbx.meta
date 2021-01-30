@@ -1460,7 +1460,7 @@ ModelImporter:
       name: PlantNTurnRigtht90
       takeName: _72_a_U1_M_P_PlantNTurn90_Run_R_Fb_p90_No_0_PJ_4
       internalID: 0
-      firstFrame: 137
+      firstFrame: 141
       lastFrame: 185
       wrapMode: 0
       orientationOffsetY: 0
@@ -1489,7 +1489,7 @@ ModelImporter:
       name: PlantNTurneft90
       takeName: _72_a_U1_M_P_PlantNTurn90_Run_R_Fb_p90_No_0_PJ_4
       internalID: 0
-      firstFrame: 137
+      firstFrame: 141
       lastFrame: 185
       wrapMode: 0
       orientationOffsetY: 0

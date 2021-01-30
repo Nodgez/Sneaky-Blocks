@@ -18,6 +18,8 @@ public class NavAgentAnimator : MonoBehaviour
     private float collisionDistanceCheck = 2f;
     [SerializeField]
     private LayerMask collisionCheck;
+    [SerializeField]
+    private InputState inputState;
 
     // Start is called before the first frame update
     void Start()

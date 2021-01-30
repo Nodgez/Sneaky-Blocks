@@ -9,7 +9,7 @@ public class Locomotion
     public static int m_AgularSpeedId = 0;
     public static int m_DirectionId = 0;
 
-    public static float m_SpeedDampTime = 0.1f;
+    public static float m_SpeedDampTime = 0.4f;
     public static float m_AnguarSpeedDampTime = 0.35f;
     public static float m_DirectionResponseTime = 0.5f;
 
